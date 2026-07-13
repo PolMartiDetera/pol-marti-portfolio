@@ -667,7 +667,7 @@ export default function Home() {
                   <MapPin className="h-8 w-8 mx-auto mb-3 text-muted-foreground" />
                   <h3 className="font-medium mb-1">Ubicació</h3>
                   <p className="text-sm text-muted-foreground">
-                    Tera, Espanya
+                    Barcelona, Espanya
                   </p>
                 </CardContent>
               </Card>
