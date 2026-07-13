@@ -177,7 +177,7 @@ export default function Home() {
         </div>
 
         {/* Hero Section */}
-        <section id="inicio" className="min-h-[100dvh] flex items-center relative overflow-hidden z-10 bg-zinc-900">
+        <section id="inicio" className="min-h-[100dvh] flex items-center relative overflow-hidden z-10">
           
           <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -543,7 +543,7 @@ export default function Home() {
         </SectionWrapper>
 
         {/* Contact Section */}
-        <SectionWrapper id="contact" className="bg-zinc-900 relative z-10">
+        <SectionWrapper id="contact" className="relative z-10">
           <div className="mx-auto max-w-6xl px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tight mb-4">

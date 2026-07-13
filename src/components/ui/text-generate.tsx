@@ -34,7 +34,7 @@ export function TextGenerate({
           animate={isInView ? { opacity: 1, filter: "blur(0px)" } : {}}
           transition={{ duration, delay: i * 0.1 }}
         >
-          {word}{" "}
+          {word}{"\u00A0"}
         </motion.span>
       ))}
     </motion.span>
