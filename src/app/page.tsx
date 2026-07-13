@@ -31,6 +31,51 @@ import Link from "next/link"
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ""
 
+// Auto-calculate age and course from birthdate
+const BIRTHDATE = new Date(2008, 4, 2) // May 2, 2008
+
+function getAgeAndCourse() {
+  const now = new Date()
+
+  // Current age
+  let age = now.getFullYear() - BIRTHDATE.getFullYear()
+  const m = now.getMonth() - BIRTHDATE.getMonth()
+  if (m < 0 || (m === 0 && now.getDate() < BIRTHDATE.getDate())) age--
+
+  // Age on September 1 of the active school year
+  const septYear = now.getMonth() >= 8 ? now.getFullYear() : now.getFullYear() - 1
+  let ageOnSept = septYear - BIRTHDATE.getFullYear()
+  if (BIRTHDATE.getMonth() > 8 || (BIRTHDATE.getMonth() === 8 && BIRTHDATE.getDate() > 1)) ageOnSept--
+
+  // Spanish education system mapping
+  let course: string
+  if (ageOnSept >= 18) {
+    course = "Batxillerat finalitzat"
+  } else if (ageOnSept === 17) {
+    course = "2n de Batxillerat"
+  } else if (ageOnSept === 16) {
+    course = "1r de Batxillerat"
+  } else if (ageOnSept === 15) {
+    course = "4t d'ESO"
+  } else if (ageOnSept === 14) {
+    course = "3r d'ESO"
+  } else if (ageOnSept === 13) {
+    course = "2n d'ESO"
+  } else if (ageOnSept === 12) {
+    course = "1r d'ESO"
+  } else if (ageOnSept >= 6) {
+    const ordinals = ["", "1r", "2n", "3r", "4t", "5è", "6è"]
+    course = `${ordinals[ageOnSept - 5]} de Primària`
+  } else if (ageOnSept >= 3) {
+    const ordinals = ["", "1r", "2n", "3r"]
+    course = `${ordinals[ageOnSept - 2]} d'Infantil`
+  } else {
+    course = "Educació Infantil"
+  }
+
+  return { age, course }
+}
+
 const pythonExercises = [
   {
     id: "session1",
@@ -54,7 +99,7 @@ print(f"Les meves habilitats: {habilitats}")`,
     title: "Exercici 2: Diccionaris",
     code: `# Diccionaris
 projecte = {
-    "nom": "Space Invaders",
+    "nom": "Flappy Bird",
     "plataforma": "Micro:bit",
     "llenguatge": "MicroPython",
     "dies": 5
@@ -143,7 +188,7 @@ print(f"10 / 'a' = {dividir(10, 'a')}")`,
 # En un entorn real, faríem servir open()
 
 # Simular lectures de fitxer
-dades_projecte = """Nom: Space Invaders
+dades_projecte = """Nom: Flappy Bird
 Plataforma: Micro:bit
 Llenguatge: MicroPython
 Dies de desenvolupament: 5
@@ -176,6 +221,7 @@ export default function Home() {
   const shouldReduceMotion = useReducedMotion()
   const [showAllOnshape, setShowAllOnshape] = React.useState(false)
   const visibleOnshape = showAllOnshape ? onshapeModels : onshapeModels.slice(0, INITIAL_ONSHAPE_COUNT)
+  const { age, course } = getAgeAndCourse()
 
   return (
     <>
@@ -206,10 +252,12 @@ export default function Home() {
                 transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <Badge variant="secondary" className="mb-6 bg-zinc-800 text-zinc-300 border-zinc-700">
-                  Batxillerat Tecnològic
+                  {course}
                 </Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-7xl font-heading font-extrabold tracking-tight mb-6">
-                  <TextGenerate words="Pol-Martí de Tera" />
+                  <span className="whitespace-nowrap"><TextGenerate words="Pol-Martí" /></span>
+                  <br />
+                  <TextGenerate words="de Tera" />
                 </h1>
                 <p className="text-lg md:text-xl text-zinc-400 mb-4 max-w-lg">
                   M&apos;agrada desmuntar coses per entendre com funcionen — i després construir alguna cosa millor.
@@ -277,7 +325,7 @@ export default function Home() {
                 </h2>
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    Soc Pol-Martí, tinc 16 anys i curso 1r de Batxillerat Tecnològic a Tera.
+                    Soc Pol-Martí de Tera, tinc {age} anys i curso {course}.
                     El que realment m&apos;apassiona és entendre com funcionen les coses —
                     des del codi que fa moure un robot fins a les peces mecàniques que el fan possible.
                   </p>
@@ -289,8 +337,8 @@ export default function Home() {
                   </p>
                   <p>
                     Tinc nivell C1 d&apos;anglès, cosa que em permet aprendre directament
-                    de documentació i recursos internacionals. Sempre estic buscant el
-                    proper projecte que em faci aprendre alguna cosa nova.
+                    de documentació i recursos internacionals. També soc voluntari
+                    del grup BOCATAS BCN — perquè la tecnologia ha d&apos;arribar a tothom.
                   </p>
                 </div>
               </div>
@@ -380,7 +428,7 @@ export default function Home() {
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
                       Sessió introductòria, diccionaris, funcions, gestió d&apos;errors i fitxers. 
-                      Desenvolupament del joc Space Invaders amb Micro:bit.
+                      Desenvolupament del joc Flappy Bird amb Micro:bit.
                     </p>
                   </CardContent>
                 </Card>
@@ -419,7 +467,7 @@ export default function Home() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Projecte Space Invaders amb Micro:bit, utilitzant sensors, 
+                      Projecte Flappy Bird amb Micro:bit, utilitzant sensors, 
                       LED matrix i programació en MicroPython.
                     </p>
                   </CardContent>
@@ -485,10 +533,10 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               <div>
                 <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tight mb-4">
-                  Space Invaders
+                  Flappy Bird
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  El meu projecte més ambiciós fins ara: un joc inspirat en Space Invaders
+                  El meu projecte més ambiciós fins ara: un joc de Flappy Bird
                   per a Micro:bit. El vaig presentar a alumnes de 1r d&apos;ESO, explicant
                   el funcionament i el procés de creació — una experiència que em va ensenyar
                   que saber fer una cosa i saber explicar-la són dues habilitats molt diferents.

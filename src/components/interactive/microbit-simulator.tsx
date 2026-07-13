@@ -66,10 +66,29 @@ display.scroll("GAME OVER! Score: " + str(score))`
 export function MicrobitSimulator({ className }: MicrobitSimulatorProps) {
   const [iframeLoaded, setIframeLoaded] = React.useState(false)
   const [activeTab, setActiveTab] = React.useState<"simulator" | "code">("simulator")
+  const [iframeReady, setIframeReady] = React.useState(false)
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
+  const sectionRef = React.useRef<HTMLDivElement>(null)
+
+  // Lazy-load iframe only when section is in viewport
+  React.useEffect(() => {
+    const el = sectionRef.current
+    if (!el || iframeReady) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIframeReady(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: "200px" }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [iframeReady])
 
   return (
-    <div className={cn("rounded-2xl overflow-hidden", className)}>
+    <div ref={sectionRef} className={cn("rounded-2xl overflow-hidden", className)}>
       {/* Gradient border wrapper */}
       <div className="p-[1px] rounded-2xl bg-gradient-to-br from-zinc-700/50 via-zinc-800/30 to-zinc-700/50">
         <div className="rounded-2xl bg-zinc-950 overflow-hidden">
@@ -113,7 +132,7 @@ export function MicrobitSimulator({ className }: MicrobitSimulatorProps) {
             </div>
 
             <div className="flex items-center gap-2 pr-4">
-              {iframeLoaded && activeTab === "simulator" && (
+              {iframeReady && iframeLoaded && activeTab === "simulator" && (
                 <span className="text-[11px] text-green-400/80 flex items-center gap-1.5 mr-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
                   Actiu
@@ -151,7 +170,7 @@ export function MicrobitSimulator({ className }: MicrobitSimulatorProps) {
           {/* Content */}
           {activeTab === "simulator" ? (
             <div className="relative w-full" style={{ minHeight: "480px" }}>
-              {!iframeLoaded && (
+              {!iframeReady ? (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center space-y-4">
                     <div className="relative">
@@ -161,16 +180,27 @@ export function MicrobitSimulator({ className }: MicrobitSimulatorProps) {
                     <p className="text-zinc-600 text-xs">Pot trigar uns segons</p>
                   </div>
                 </div>
+              ) : !iframeLoaded ? (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center space-y-4">
+                    <div className="h-10 w-10 border-2 border-zinc-700 border-t-zinc-300 rounded-full animate-spin mx-auto" />
+                    <p className="text-zinc-500 text-sm">Carregant simulador MakeCode...</p>
+                    <p className="text-zinc-600 text-xs">Pot trigar uns segons</p>
+                  </div>
+                </div>
+              ) : null}
+              {iframeReady && (
+                <iframe
+                  src={MAKECODE_URL}
+                  title="MakeCode Micro:bit Simulator"
+                  className="w-full border-0"
+                  style={{ height: "480px" }}
+                  allow="accelerometer; gyroscope; magnetometer; autoplay; microphone"
+                  onLoad={() => setIframeLoaded(true)}
+                  sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                  tabIndex={-1}
+                />
               )}
-              <iframe
-                src={MAKECODE_URL}
-                title="MakeCode Micro:bit Simulator"
-                className="w-full border-0"
-                style={{ height: "480px" }}
-                allow="accelerometer; gyroscope; magnetometer; autoplay; microphone"
-                onLoad={() => setIframeLoaded(true)}
-                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-              />
             </div>
           ) : (
             <div className="p-4 max-h-[480px] overflow-y-auto">
