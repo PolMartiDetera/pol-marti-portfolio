@@ -219,7 +219,7 @@ export default function Home() {
               >
                 <div className="aspect-square relative rounded-2xl bg-zinc-800 border border-zinc-700 overflow-hidden flex items-center justify-center">
                   <img
-                    src="/profile.png"
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/profile.png`}
                     alt="Pol-Martí de Tera"
                     className="w-full h-full object-cover"
                   />
@@ -242,7 +242,7 @@ export default function Home() {
               <div>
                 <div className="mb-6">
                   <img
-                    src="/profile.png"
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/profile.png`}
                     alt="Pol-Martí de Tera"
                     className="w-32 h-32 rounded-full object-cover border-4 border-zinc-700"
                   />
@@ -512,16 +512,16 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { model: "/models/Part Studio 1.gltf", title: "Introduction to Part Design (I)", desc: "Primers passos en el disseny de peces", url: "https://cad.onshape.com/documents/147e11be3417fb12ca1e8132/w/ec9e39150a7fbe121b52e40e/e/6e1c71b7d6a313868abe2986" },
-                { model: "/models/Part Studio 1(1).gltf", title: "Exercici 2D", desc: "Disseny 2D sense tutorial", url: "https://cad.onshape.com/documents/1bce89b7d569fddf5cf6aeed/w/2c0713355403b35d29d4dd8d/e/c73fa9588d0ec33d3cdf5ea6" },
-                { model: "/models/Part Studio 1(2).gltf", title: "Introduction to Part Design (II)", desc: "Continuació del disseny de peces", url: "https://cad.onshape.com/documents/a0463daa10896162769a254d/w/c07082787c55b5519a73f02c/e/7b1b02229c7fd636d5c5724d" },
-                { model: "/models/Part Studio 1(3).gltf", title: "Consolidació del Sketch 2D", desc: "Pràctica avançada de sketch 2D", url: "https://cad.onshape.com/documents/237fc1f4595ae42daf5a5733/w/25a9a47faa2d577075b9c2fd/e/7c79ed78bf44bc1767307761" },
-                { model: "/models/Part Studio 1(4).gltf", title: "Consolidació de les eines 3D", desc: "Domini de les eines de modelatge 3D", url: "https://cad.onshape.com/documents/4b4fd3fb816296ff5257a42a/w/b49ae40cd8d12df6c36f0257/e/f285e4532598f75506b95b48" },
-                { model: "/models/Funel - Funel.gltf", title: "Dissenya una Cadira", desc: "Projecte de disseny de mobiliari", url: "https://cad.onshape.com/documents/50e1c1726cbf5002e6638327/w/ee4e97aeec3e0abf2c7dbd45/e/3738323109a8a8aa60a7216f" },
-                { model: "/models/Gear Cover.gltf", title: "Peces d'enginyeria", desc: "Disseny de peces mecàniques complexes", url: "https://cad.onshape.com/documents/810a02e0df4c5b31d441432c/w/137cf80c5c8d61474a6fdcf3/e/7bfa94b7ee689529edd24f6c" },
-                { model: "/models/Reflector.gltf", title: "Reflector", desc: "Disseny de component óptic", url: "" },
-                { model: "/models/Part Studio 1(5).gltf", title: "Activitat Extra", desc: "Activitat addicional de pràctica", url: "" },
-                { model: "/models/Part Studio 1(6).gltf", title: "Projecte Final", desc: "Projecte final de disseny 3D", url: "" },
+                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1.gltf`, title: "Introduction to Part Design (I)", desc: "Primers passos en el disseny de peces", url: "https://cad.onshape.com/documents/147e11be3417fb12ca1e8132/w/ec9e39150a7fbe121b52e40e/e/6e1c71b7d6a313868abe2986" },
+                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(1).gltf`, title: "Exercici 2D", desc: "Disseny 2D sense tutorial", url: "https://cad.onshape.com/documents/1bce89b7d569fddf5cf6aeed/w/2c0713355403b35d29d4dd8d/e/c73fa9588d0ec33d3cdf5ea6" },
+                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(2).gltf`, title: "Introduction to Part Design (II)", desc: "Continuació del disseny de peces", url: "https://cad.onshape.com/documents/a0463daa10896162769a254d/w/c07082787c55b5519a73f02c/e/7b1b02229c7fd636d5c5724d" },
+                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(3).gltf`, title: "Consolidació del Sketch 2D", desc: "Pràctica avançada de sketch 2D", url: "https://cad.onshape.com/documents/237fc1f4595ae42daf5a5733/w/25a9a47faa2d577075b9c2fd/e/7c79ed78bf44bc1767307761" },
+                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(4).gltf`, title: "Consolidació de les eines 3D", desc: "Domini de les eines de modelatge 3D", url: "https://cad.onshape.com/documents/4b4fd3fb816296ff5257a42a/w/b49ae40cd8d12df6c36f0257/e/f285e4532598f75506b95b48" },
+                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Funel - Funel.gltf`, title: "Dissenya una Cadira", desc: "Projecte de disseny de mobiliari", url: "https://cad.onshape.com/documents/50e1c1726cbf5002e6638327/w/ee4e97aeec3e0abf2c7dbd45/e/3738323109a8a8aa60a7216f" },
+                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Gear Cover.gltf`, title: "Peces d'enginyeria", desc: "Disseny de peces mecàniques complexes", url: "https://cad.onshape.com/documents/810a02e0df4c5b31d441432c/w/137cf80c5c8d61474a6fdcf3/e/7bfa94b7ee689529edd24f6c" },
+                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Reflector.gltf`, title: "Reflector", desc: "Disseny de component óptic", url: "" },
+                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(5).gltf`, title: "Activitat Extra", desc: "Activitat addicional de pràctica", url: "" },
+                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(6).gltf`, title: "Projecte Final", desc: "Projecte final de disseny 3D", url: "" },
               ].map((activity, i) => (
                 <Card key={i} className="group hover:shadow-lg transition-shadow">
                   <CardHeader>
