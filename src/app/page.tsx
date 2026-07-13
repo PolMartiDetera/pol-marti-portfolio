@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import { Nav } from "@/components/layout/nav"
 import { Footer } from "@/components/layout/footer"
 import { SectionWrapper } from "@/components/layout/section-wrapper"
@@ -20,13 +21,15 @@ import {
   Code,
   Cube,
   Envelope,
-  Phone,
   MapPin,
   MusicNote,
   Globe,
   Cpu,
+  Quotes,
 } from "@phosphor-icons/react"
 import Link from "next/link"
+
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ""
 
 const pythonExercises = [
   {
@@ -154,8 +157,25 @@ for linia in linies:
   },
 ]
 
+const onshapeModels = [
+  { model: `${BASE_PATH}/models/Part Studio 1.gltf`, title: "Introduction to Part Design (I)", desc: "Primers passos en el disseny de peces", url: "https://cad.onshape.com/documents/147e11be3417fb12ca1e8132/w/ec9e39150a7fbe121b52e40e/e/6e1c71b7d6a313868abe2986" },
+  { model: `${BASE_PATH}/models/Part Studio 1(1).gltf`, title: "Exercici 2D", desc: "Disseny 2D sense tutorial", url: "https://cad.onshape.com/documents/1bce89b7d569fddf5cf6aeed/w/2c0713355403b35d29d4dd8d/e/c73fa9588d0ec33d3cdf5ea6" },
+  { model: `${BASE_PATH}/models/Part Studio 1(2).gltf`, title: "Introduction to Part Design (II)", desc: "Continuació del disseny de peces", url: "https://cad.onshape.com/documents/a0463daa10896162769a254d/w/c07082787c55b5519a73f02c/e/7b1b02229c7fd636d5c5724d" },
+  { model: `${BASE_PATH}/models/Part Studio 1(3).gltf`, title: "Consolidació del Sketch 2D", desc: "Pràctica avançada de sketch 2D", url: "https://cad.onshape.com/documents/237fc1f4595ae42daf5a5733/w/25a9a47faa2d577075b9c2fd/e/7c79ed78bf44bc1767307761" },
+  { model: `${BASE_PATH}/models/Part Studio 1(4).gltf`, title: "Consolidació de les eines 3D", desc: "Domini de les eines de modelatge 3D", url: "https://cad.onshape.com/documents/4b4fd3fb816296ff5257a42a/w/b49ae40cd8d12df6c36f0257/e/f285e4532598f75506b95b48" },
+  { model: `${BASE_PATH}/models/Funel - Funel.gltf`, title: "Dissenya una Cadira", desc: "Projecte de disseny de mobiliari", url: "https://cad.onshape.com/documents/50e1c1726cbf5002e6638327/w/ee4e97aeec3e0abf2c7dbd45/e/3738323109a8a8aa60a7216f" },
+  { model: `${BASE_PATH}/models/Gear Cover.gltf`, title: "Peces d'enginyeria", desc: "Disseny de peces mecàniques complexes", url: "https://cad.onshape.com/documents/810a02e0df4c5b31d441432c/w/137cf80c5c8d61474a6fdcf3/e/7bfa94b7ee689529edd24f6c" },
+  { model: `${BASE_PATH}/models/Reflector.gltf`, title: "Reflector", desc: "Disseny de component óptic", url: "" },
+  { model: `${BASE_PATH}/models/Part Studio 1(5).gltf`, title: "Activitat Extra", desc: "Activitat addicional de pràctica", url: "" },
+  { model: `${BASE_PATH}/models/Part Studio 1(6).gltf`, title: "Projecte Final", desc: "Projecte final de disseny 3D", url: "" },
+]
+
+const INITIAL_ONSHAPE_COUNT = 6
+
 export default function Home() {
   const shouldReduceMotion = useReducedMotion()
+  const [showAllOnshape, setShowAllOnshape] = React.useState(false)
+  const visibleOnshape = showAllOnshape ? onshapeModels : onshapeModels.slice(0, INITIAL_ONSHAPE_COUNT)
 
   return (
     <>
@@ -178,7 +198,6 @@ export default function Home() {
 
         {/* Hero Section */}
         <section id="inicio" className="min-h-[100dvh] flex items-center relative overflow-hidden z-10">
-          
           <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.div
@@ -192,9 +211,11 @@ export default function Home() {
                 <h1 className="text-4xl md:text-5xl lg:text-7xl font-heading font-extrabold tracking-tight mb-6">
                   <TextGenerate words="Pol-Martí de Tera" />
                 </h1>
-                <p className="text-lg md:text-xl text-zinc-400 mb-8 max-w-lg">
-                  Estudiant apassionat per la robòtica, programació i disseny 3D. 
-                  Creant solucions tecnològiques amb impacte real.
+                <p className="text-lg md:text-xl text-zinc-400 mb-4 max-w-lg">
+                  M&apos;agrada desmuntar coses per entendre com funcionen — i després construir alguna cosa millor.
+                </p>
+                <p className="text-sm text-zinc-500 mb-8 max-w-lg italic">
+                  &quot;La tecnologia és només una eina. En termes de reunir els nens a treballar i motivar-los, la bona professora és la més important.&quot; — Bill Gates
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button asChild size="lg">
@@ -217,11 +238,13 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="relative"
               >
-                <div className="aspect-square relative rounded-2xl bg-zinc-800 border border-zinc-700 overflow-hidden flex items-center justify-center">
-                  <img
-                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/profile.png`}
-                    alt="Pol-Martí de Tera"
-                    className="w-full h-full object-cover"
+                <div className="aspect-square relative rounded-2xl bg-zinc-800 border border-zinc-700 overflow-hidden">
+                  <Image
+                    src={`${BASE_PATH}/profile.png`}
+                    alt="Pol-Martí de Tera, estudiant de Batxillerat Tecnològic"
+                    fill
+                    className="object-cover"
+                    priority
                   />
                   <div className="absolute top-4 right-4">
                     <div className="h-3 w-3 rounded-full bg-blue-500/50" />
@@ -241,10 +264,12 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <div>
                 <div className="mb-6">
-                  <img
-                    src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/profile.png`}
+                  <Image
+                    src={`${BASE_PATH}/profile.png`}
                     alt="Pol-Martí de Tera"
-                    className="w-32 h-32 rounded-full object-cover border-4 border-zinc-700"
+                    width={128}
+                    height={128}
+                    className="rounded-full object-cover border-4 border-zinc-700"
                   />
                 </div>
                 <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tight mb-6">
@@ -252,19 +277,20 @@ export default function Home() {
                 </h2>
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    Em dic Pol-Martí de Tera i actualment estic cursant 1r de Batxillerat. 
-                    Tinc un gran interès per tot el que està relacionat amb la tecnologia, 
-                    especialment en àrees com la robòtica.
+                    Soc Pol-Martí, tinc 16 anys i curso 1r de Batxillerat Tecnològic a Tera.
+                    El que realment m&apos;apassiona és entendre com funcionen les coses —
+                    des del codi que fa moure un robot fins a les peces mecàniques que el fan possible.
                   </p>
                   <p>
-                    M&apos;agrada explorar com funcionen les màquines i sistemes automatitzats 
-                    i m&apos;atrau la idea de crear solucions innovadores mitjançant la 
-                    programació i la mecànica. També toco la bateria, una altra forma de 
-                    combinar la meva passió pel ritme i la coordinació.
+                    Vaig començar amb Python i Micro:bit a l&apos;assignatura de Robòtica,
+                    i ràpidament vaig descobrir que el disseny 3D amb Onshape era una altra
+                    forma de crear coses tangible. També toco la bateria — perquè la música
+                    i la tecnologia tenen més en comú del que sembla: ritme, precisió i creativitat.
                   </p>
                   <p>
-                    Compto amb el nivell C1 d&apos;anglès, cosa que em facilita l&apos;accés 
-                    a recursos internacionals per aprendre més sobre els avanços tecnològics.
+                    Tinc nivell C1 d&apos;anglès, cosa que em permet aprendre directament
+                    de documentació i recursos internacionals. Sempre estic buscant el
+                    proper projecte que em faci aprendre alguna cosa nova.
                   </p>
                 </div>
               </div>
@@ -305,7 +331,7 @@ export default function Home() {
                   </Card>
                   <Card>
                     <CardContent className="pt-6">
-                      <div className="text-2xl font-bold">7</div>
+                      <div className="text-2xl font-bold">10</div>
                       <p className="text-sm text-muted-foreground">Activitats Onshape</p>
                     </CardContent>
                   </Card>
@@ -373,7 +399,7 @@ export default function Home() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      7 activitats de disseny 3D amb Onshape, des de peces simples 
+                      10 activitats de disseny 3D amb Onshape, des de peces simples 
                       fins a muntatges complets amb restriccions i referències.
                     </p>
                   </CardContent>
@@ -400,6 +426,16 @@ export default function Home() {
                 </Card>
               </GlareCard>
             </div>
+
+            {/* Motivational quote */}
+            <div className="mt-12 text-center">
+              <div className="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-zinc-800/30 border border-zinc-700/30">
+                <Quotes className="h-5 w-5 text-zinc-500 flex-shrink-0" />
+                <p className="text-sm text-zinc-400 italic">
+                  &quot;No és sobre les eines que tens, és sobre com les fas servir per resolver problemes reals.&quot;
+                </p>
+              </div>
+            </div>
           </div>
         </SectionWrapper>
 
@@ -411,8 +447,8 @@ export default function Home() {
                 Exercicis Python
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                En aquesta secció trobaràs les activitats i projectes realitzats amb Python 
-                durant l&apos;assignatura de Robòtica de 1r de Batxillerat.
+                Les 6 primeres sessions de programació a l&apos;assignatura de Robòtica.
+                Cada exercici construeix sobre l&apos;anterior — de variables a gestió d&apos;errors.
               </p>
             </div>
 
@@ -452,12 +488,10 @@ export default function Home() {
                   Space Invaders
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  En aquest projecte vaig desenvolupar un joc inspirat en el joc 
-                  &quot;Space Invaders (Atari)&quot; utilitzant Micro:bit. A més, vaig tenir 
-                  l&apos;oportunitat de presentar-lo a alumnes de 1r d&apos;ESO, explicant el 
-                  funcionament i el procés de creació. Aquesta experiència em va permetre 
-                  millorar les meves habilitats comunicatives i transmetre el meu interès 
-                  per la tecnologia a un públic més jove.
+                  El meu projecte més ambiciós fins ara: un joc inspirat en Space Invaders
+                  per a Micro:bit. El vaig presentar a alumnes de 1r d&apos;ESO, explicant
+                  el funcionament i el procés de creació — una experiència que em va ensenyar
+                  que saber fer una cosa i saber explicar-la són dues habilitats molt diferents.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   <Badge variant="secondary">MicroPython</Badge>
@@ -506,23 +540,13 @@ export default function Home() {
                 Disseny 3D amb Onshape
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                7 activitats de modelatge 3D amb restriccions i referències
+                10 activitats de modelatge 3D, des de les primeres passes fins a projectes complexes.
+                Cada peça em va ensenyar a pensar en 3D i a resoldre problemes de geometria.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1.gltf`, title: "Introduction to Part Design (I)", desc: "Primers passos en el disseny de peces", url: "https://cad.onshape.com/documents/147e11be3417fb12ca1e8132/w/ec9e39150a7fbe121b52e40e/e/6e1c71b7d6a313868abe2986" },
-                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(1).gltf`, title: "Exercici 2D", desc: "Disseny 2D sense tutorial", url: "https://cad.onshape.com/documents/1bce89b7d569fddf5cf6aeed/w/2c0713355403b35d29d4dd8d/e/c73fa9588d0ec33d3cdf5ea6" },
-                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(2).gltf`, title: "Introduction to Part Design (II)", desc: "Continuació del disseny de peces", url: "https://cad.onshape.com/documents/a0463daa10896162769a254d/w/c07082787c55b5519a73f02c/e/7b1b02229c7fd636d5c5724d" },
-                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(3).gltf`, title: "Consolidació del Sketch 2D", desc: "Pràctica avançada de sketch 2D", url: "https://cad.onshape.com/documents/237fc1f4595ae42daf5a5733/w/25a9a47faa2d577075b9c2fd/e/7c79ed78bf44bc1767307761" },
-                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(4).gltf`, title: "Consolidació de les eines 3D", desc: "Domini de les eines de modelatge 3D", url: "https://cad.onshape.com/documents/4b4fd3fb816296ff5257a42a/w/b49ae40cd8d12df6c36f0257/e/f285e4532598f75506b95b48" },
-                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Funel - Funel.gltf`, title: "Dissenya una Cadira", desc: "Projecte de disseny de mobiliari", url: "https://cad.onshape.com/documents/50e1c1726cbf5002e6638327/w/ee4e97aeec3e0abf2c7dbd45/e/3738323109a8a8aa60a7216f" },
-                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Gear Cover.gltf`, title: "Peces d'enginyeria", desc: "Disseny de peces mecàniques complexes", url: "https://cad.onshape.com/documents/810a02e0df4c5b31d441432c/w/137cf80c5c8d61474a6fdcf3/e/7bfa94b7ee689529edd24f6c" },
-                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Reflector.gltf`, title: "Reflector", desc: "Disseny de component óptic", url: "" },
-                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(5).gltf`, title: "Activitat Extra", desc: "Activitat addicional de pràctica", url: "" },
-                { model: `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/models/Part Studio 1(6).gltf`, title: "Projecte Final", desc: "Projecte final de disseny 3D", url: "" },
-              ].map((activity, i) => (
+              {visibleOnshape.map((activity, i) => (
                 <Card key={i} className="group hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <CardTitle className="text-lg">{activity.title}</CardTitle>
@@ -539,6 +563,28 @@ export default function Home() {
                 </Card>
               ))}
             </div>
+
+            {!showAllOnshape && onshapeModels.length > INITIAL_ONSHAPE_COUNT && (
+              <div className="text-center mt-8">
+                <Button
+                  variant="outline"
+                  onClick={() => setShowAllOnshape(true)}
+                  className="border-zinc-700 text-zinc-300 hover:bg-zinc-800"
+                >
+                  Mostrar més activitats ({onshapeModels.length - INITIAL_ONSHAPE_COUNT} més)
+                </Button>
+              </div>
+            )}
+
+            {/* Motivational quote */}
+            <div className="mt-12 text-center">
+              <div className="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-zinc-800/30 border border-zinc-700/30">
+                <Quotes className="h-5 w-5 text-zinc-500 flex-shrink-0" />
+                <p className="text-sm text-zinc-400 italic">
+                  &quot;El disseny no és només el que sembla i com se sent. El disseny és com funciona.&quot; — Steve Jobs
+                </p>
+              </div>
+            </div>
           </div>
         </SectionWrapper>
 
@@ -554,7 +600,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
               <Card className="text-center bg-background">
                 <CardContent className="pt-6">
                   <Envelope className="h-8 w-8 mx-auto mb-3 text-muted-foreground" />
@@ -570,19 +616,6 @@ export default function Home() {
 
               <Card className="text-center bg-background">
                 <CardContent className="pt-6">
-                  <Phone className="h-8 w-8 mx-auto mb-3 text-muted-foreground" />
-                  <h3 className="font-medium mb-1">Telèfon</h3>
-                  <a
-                    href="tel:644992072"
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    644 992 072
-                  </a>
-                </CardContent>
-              </Card>
-
-              <Card className="text-center bg-background">
-                <CardContent className="pt-6">
                   <MapPin className="h-8 w-8 mx-auto mb-3 text-muted-foreground" />
                   <h3 className="font-medium mb-1">Ubicació</h3>
                   <p className="text-sm text-muted-foreground">
@@ -590,6 +623,16 @@ export default function Home() {
                   </p>
                 </CardContent>
               </Card>
+            </div>
+
+            {/* Motivational quote */}
+            <div className="mt-12 text-center">
+              <div className="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-zinc-800/30 border border-zinc-700/30">
+                <Quotes className="h-5 w-5 text-zinc-500 flex-shrink-0" />
+                <p className="text-sm text-zinc-400 italic">
+                  &quot;El millor moment per començar era ahir. El segon millor moment és ara.&quot;
+                </p>
+              </div>
             </div>
           </div>
         </SectionWrapper>

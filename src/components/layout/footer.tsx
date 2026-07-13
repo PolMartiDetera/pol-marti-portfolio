@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Envelope, Phone, GithubLogo, LinkedinLogo } from "@phosphor-icons/react"
+import { Envelope, GithubLogo, LinkedinLogo } from "@phosphor-icons/react"
 
 export function Footer() {
   return (
@@ -29,8 +29,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Projectes
+                <Link href="#onshape" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Disseny 3D
                 </Link>
               </li>
             </ul>
@@ -49,15 +49,6 @@ export function Footer() {
                   pdeterapujol@gmail.com
                 </a>
               </li>
-              <li>
-                <a
-                  href="tel:644992072"
-                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <Phone className="h-4 w-4" />
-                  644 992 072
-                </a>
-              </li>
             </ul>
           </div>
         </div>
@@ -68,7 +59,9 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="#"
+              href="https://github.com/PolMartiDetera"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="GitHub"
             >
@@ -76,6 +69,8 @@ export function Footer() {
             </a>
             <a
               href="#"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-muted-foreground hover:text-foreground transition-colors"
               aria-label="LinkedIn"
             >
