@@ -9,17 +9,10 @@ interface MicrobitSimulatorProps {
   className?: string
 }
 
-// Simple bird pattern for the LED display
-const BIRD_LED = [
-  0, 0, 0, 0, 0,
-  0, 0, 1, 0, 0,
-  0, 0, 1, 1, 0,
-  0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0,
-]
+const MAKECODE_URL = "https://makecode.microbit.org/S25148-21398-20552-87081"
 
 export function MicrobitSimulator({ className }: MicrobitSimulatorProps) {
-  const [hovered, setHovered] = React.useState(false)
+  const [iframeLoaded, setIframeLoaded] = React.useState(false)
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ""
 
   return (
@@ -27,104 +20,75 @@ export function MicrobitSimulator({ className }: MicrobitSimulatorProps) {
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-800 bg-zinc-900/50">
         <div className="flex items-center gap-2 text-sm text-zinc-300">
-          <span className="font-medium">Micro:bit</span>
+          <span className="font-medium">Micro:bit v2</span>
+          {iframeLoaded && (
+            <span className="text-xs text-green-500 flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
+              Simulatori actiu
+            </span>
+          )}
         </div>
-        <div className="text-xs text-zinc-600">BBC micro:bit v2</div>
+        <div className="text-xs text-zinc-600">BBC micro:bit</div>
       </div>
 
-      {/* Micro:bit Visual */}
-      <div className="p-8 flex flex-col items-center gap-6">
-        <div
-          className="relative cursor-pointer"
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-        >
-          {/* Micro:bit board shape */}
-          <div className="w-52 bg-zinc-900 rounded-xl border border-zinc-700/50 p-4 relative">
-            {/* Top connector pins */}
-            <div className="flex gap-3 mb-4 justify-center">
-              {[0, 1, 2].map(i => (
-                <div key={i} className="w-4 h-2 bg-zinc-700 rounded-sm" />
-              ))}
-            </div>
-
-            {/* Main chip */}
-            <div className="bg-zinc-800 rounded-lg p-3 mb-4">
-              <div className="text-[10px] text-zinc-600 text-center font-mono">nRF52833</div>
-            </div>
-
-            {/* LED Grid */}
-            <div className="grid grid-cols-5 gap-1.5 p-2 bg-zinc-950 rounded">
-              {BIRD_LED.map((led, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "w-5 h-5 rounded-sm transition-all duration-300",
-                    led
-                      ? hovered
-                        ? "bg-red-400 shadow-[0_0_10px_rgba(248,113,113,0.8)]"
-                        : "bg-red-500/70"
-                      : "bg-zinc-800"
-                  )}
-                />
-              ))}
-            </div>
-
-            {/* Buttons */}
-            <div className="flex justify-between mt-4 px-2">
-              <div className="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-[10px] text-zinc-400">
-                A
-              </div>
-              <div className="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center text-[10px] text-zinc-400">
-                B
-              </div>
-            </div>
-
-            {/* Bottom connector */}
-            <div className="flex gap-2 mt-4 justify-center">
-              {[0, 1, 2, 3, 4].map(i => (
-                <div key={i} className="w-3 h-2 bg-zinc-700 rounded-sm" />
-              ))}
+      {/* MakeCode Simulator Iframe */}
+      <div className="relative w-full bg-zinc-950">
+        {!iframeLoaded && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center space-y-3">
+              <div className="h-8 w-8 border-2 border-zinc-600 border-t-zinc-300 rounded-full animate-spin mx-auto" />
+              <p className="text-zinc-500 text-sm">Carregant simulador...</p>
             </div>
           </div>
-        </div>
+        )}
+        <iframe
+          src={MAKECODE_URL}
+          title="MakeCode Micro:bit Simulator"
+          className="w-full border-0"
+          style={{ height: "480px" }}
+          allow="accelerometer; gyroscope; magnetometer; autoplay; microphone"
+          onLoad={() => setIframeLoaded(true)}
+          sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+        />
+      </div>
 
-        {/* Info */}
-        <div className="text-center space-y-1">
-          <p className="text-zinc-300 text-sm font-medium">Flappy Bird</p>
-          <p className="text-zinc-500 text-xs">
-            Joc desenvolupat amb MicroPython
-          </p>
-        </div>
-
-        {/* Actions */}
-        <div className="flex gap-3">
-          <Button
-            size="sm"
-            variant="outline"
-            asChild
-            className="border-zinc-700 text-zinc-300 hover:bg-zinc-800"
-          >
-            <a href={`${basePath}/microbit-flappy-bird.hex`} download="flappy-bird.hex">
-              <Download className="h-4 w-4 mr-2" />
-              Descarregar .hex
-            </a>
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            asChild
-            className="border-zinc-700 text-zinc-300 hover:bg-zinc-800"
-          >
-            <a
-              href="https://makecode.microbit.org/"
-              target="_blank"
-              rel="noopener noreferrer"
+      {/* Footer */}
+      <div className="px-4 py-3 border-t border-zinc-800 bg-zinc-900/50">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div className="space-y-1">
+            <p className="text-zinc-300 text-sm font-medium">Flappy Bird</p>
+            <p className="text-zinc-500 text-xs">
+              Joc desenvolupat amb MicroPython al MakeCode
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              asChild
+              className="border-zinc-700 text-zinc-300 hover:bg-zinc-800"
             >
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Obrir MakeCode
-            </a>
-          </Button>
+              <a href={`${basePath}/microbit-flappy-bird.hex`} download="flappy-bird.hex">
+                <Download className="h-4 w-4 mr-2" />
+                .hex
+              </a>
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              asChild
+              className="border-zinc-700 text-zinc-300 hover:bg-zinc-800"
+            >
+              <a
+                href={MAKECODE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Obrir MakeCode
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </div>

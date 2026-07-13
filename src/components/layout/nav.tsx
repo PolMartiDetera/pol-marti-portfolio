@@ -11,8 +11,17 @@ const navItems = [
   { label: "Qui Soc", href: "#about" },
   { label: "Robotica", href: "#robotics" },
   { label: "Python", href: "#python" },
+  { label: "Micro:bit", href: "#microbit" },
   { label: "Contacte", href: "#contact" },
 ]
+
+function smoothScrollTo(href: string) {
+  const id = href.replace("#", "")
+  const el = document.getElementById(id)
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+}
 
 export function Nav() {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -44,12 +53,16 @@ export function Nav() {
         <ul className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <li key={item.href}>
-              <Link
+              <a
                 href={item.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                onClick={(e) => {
+                  e.preventDefault()
+                  smoothScrollTo(item.href)
+                }}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
               >
                 {item.label}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
@@ -72,13 +85,17 @@ export function Nav() {
           <ul className="flex flex-col p-6 gap-4">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link
+                <a
                   href={item.href}
-                  className="text-lg text-muted-foreground hover:text-foreground transition-colors block py-2"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setIsOpen(false)
+                    smoothScrollTo(item.href)
+                  }}
+                  className="text-lg text-muted-foreground hover:text-foreground transition-colors block py-2 cursor-pointer"
                 >
                   {item.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

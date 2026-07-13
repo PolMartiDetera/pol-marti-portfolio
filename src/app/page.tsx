@@ -182,9 +182,9 @@ export default function Home() {
           <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.div
-                initial={shouldReduceMotion ? false : { opacity: 0, x: -20 }}
+                initial={shouldReduceMotion ? false : { opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <Badge variant="secondary" className="mb-6 bg-zinc-800 text-zinc-300 border-zinc-700">
                   Batxillerat Tecnològic
@@ -212,9 +212,9 @@ export default function Home() {
               </motion.div>
 
               <motion.div
-                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95 }}
+                initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="relative"
               >
                 <div className="aspect-square relative rounded-2xl bg-zinc-800 border border-zinc-700 overflow-hidden flex items-center justify-center">

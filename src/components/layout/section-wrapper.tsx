@@ -16,10 +16,11 @@ export function SectionWrapper({ children, className, id }: SectionWrapperProps)
   return (
     <motion.section
       id={id}
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      exit={{ opacity: 0, y: -40 }}
+      viewport={{ once: false, amount: 0.05, margin: "-50px" }}
+      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={cn("py-24 md:py-32", className)}
     >
       {children}
