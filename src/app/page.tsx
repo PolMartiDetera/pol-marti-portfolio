@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TextGenerate } from "@/components/ui/text-generate"
 import { GlareCard } from "@/components/ui/glare-card"
-import DotGrid from "@/components/react-bits/dot-grid"
+import { LaptopBackground } from "@/components/laptop-background"
 import { motion, useReducedMotion } from "motion/react"
 import { PythonTerminal } from "@/components/interactive/python-terminal"
 import { MicrobitSimulator } from "@/components/interactive/microbit-simulator"
@@ -225,25 +225,11 @@ export default function Home() {
 
   return (
     <>
+      <LaptopBackground />
       <Nav />
       <main className="flex-1 relative z-10">
-        {/* Background effect - always behind content */}
-        <div className="fixed inset-0 z-0 pointer-events-none">
-          <DotGrid
-            dotSize={2}
-            gap={22}
-            baseColor="#333333"
-            activeColor="#ffffff"
-            proximity={150}
-            shockRadius={250}
-            shockStrength={5}
-            resistance={750}
-            returnDuration={1.5}
-          />
-        </div>
-
         {/* Hero Section */}
-        <section id="inicio" className="min-h-[100dvh] flex items-center relative overflow-hidden z-10">
+        <section id="inicio" className="min-h-[100dvh] flex items-center relative overflow-hidden z-10 bg-zinc-950/80 backdrop-blur-sm">
           <div className="relative mx-auto max-w-6xl px-6 py-24 md:py-32">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.div
@@ -402,7 +388,7 @@ export default function Home() {
         </SectionWrapper>
 
         {/* Robotics Section */}
-        <SectionWrapper id="robotics" className="relative z-10">
+        <SectionWrapper id="robotics" className="bg-zinc-950/70 backdrop-blur-sm relative z-10">
           <div className="mx-auto max-w-6xl px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tight mb-4">
@@ -528,7 +514,7 @@ export default function Home() {
         </SectionWrapper>
 
         {/* Micro:bit Section */}
-        <SectionWrapper id="microbit" className="relative z-10">
+        <SectionWrapper id="microbit" className="bg-zinc-950/70 backdrop-blur-sm relative z-10">
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               <div>
@@ -637,7 +623,7 @@ export default function Home() {
         </SectionWrapper>
 
         {/* Contact Section */}
-        <SectionWrapper id="contact" className="relative z-10">
+        <SectionWrapper id="contact" className="bg-zinc-950/70 backdrop-blur-sm relative z-10">
           <div className="mx-auto max-w-6xl px-6">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-heading font-bold tracking-tight mb-4">
