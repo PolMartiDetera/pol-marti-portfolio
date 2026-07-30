@@ -1,0 +1,22 @@
+{
+  "$schema": "https://open-design.ai/schemas/plugin.v1.json",
+  "specVersion": "1.0.0",
+  "name": "plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s",
+  "title": "Plan: Bold Editorial CV for Pol-Martí de Tera",
+  "version": "0.1.0",
+  "description": "Reusable skill material detected from a project file.",
+  "od": {
+    "kind": "skill",
+    "taskKind": "new-generation",
+    "context": {
+      "skills": [
+        {
+          "path": "./SKILL.md"
+        }
+      ]
+    },
+    "capabilities": [
+      "prompt:inject"
+    ]
+  }
+}

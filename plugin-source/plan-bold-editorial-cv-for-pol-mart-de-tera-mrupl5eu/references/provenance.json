@@ -1,0 +1,19 @@
+{
+  "candidateId": "8e5526e1-4b07-41b2-a638-004154ae3a18",
+  "projectId": "8fdd7dcf-2f71-4656-90d4-58bb60e9f8bd",
+  "runId": "aa17e2a0-d741-4aef-bfe7-aa4da419a4b1",
+  "conversationId": "b52199e5-34db-46f1-ba1f-16f7d489d0a2",
+  "provenance": {
+    "summary": "Detected from plan.md after a successful run.",
+    "detectedAt": 1784641649400
+  },
+  "sourceRefs": [
+    {
+      "kind": "file",
+      "value": "plan.md",
+      "label": "plan.md",
+      "size": 3625,
+      "copied": true
+    }
+  ]
+}

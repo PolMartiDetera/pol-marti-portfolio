@@ -1,0 +1,33 @@
+{
+  "candidateId": "73fe0e52-dc1e-4112-8337-a2089b3944a1",
+  "projectId": "8fdd7dcf-2f71-4656-90d4-58bb60e9f8bd",
+  "runId": "02f68316-71ff-49d1-9b46-81f79968b413",
+  "conversationId": "b52199e5-34db-46f1-ba1f-16f7d489d0a2",
+  "provenance": {
+    "summary": "Detected from plan.md, plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/references/source-1-plan.md, plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/SKILL.md after a successful run.",
+    "detectedAt": 1784648716208
+  },
+  "sourceRefs": [
+    {
+      "kind": "file",
+      "value": "plan.md",
+      "label": "plan.md",
+      "size": 3625,
+      "copied": true
+    },
+    {
+      "kind": "file",
+      "value": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/references/source-1-plan.md",
+      "label": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/references/source-1-plan.md",
+      "size": 3625,
+      "copied": true
+    },
+    {
+      "kind": "file",
+      "value": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/SKILL.md",
+      "label": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/SKILL.md",
+      "size": 3721,
+      "copied": true
+    }
+  ]
+}

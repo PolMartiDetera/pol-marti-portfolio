@@ -1,0 +1,61 @@
+{
+  "candidateId": "e7300568-396c-4c39-b3df-58ace6c1ef98",
+  "projectId": "8fdd7dcf-2f71-4656-90d4-58bb60e9f8bd",
+  "runId": "20a545a3-661a-4245-9077-fe7d8f53bc73",
+  "conversationId": "b52199e5-34db-46f1-ba1f-16f7d489d0a2",
+  "provenance": {
+    "summary": "Detected from plan.md, plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/references/source-1-plan.md, plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/SKILL.md, plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/references/source-3-SKILL.md, plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/references/source-2-source-1-plan.md, plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/references/source-1-plan.md, plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/SKILL.md after a successful run.",
+    "detectedAt": 1784891317399
+  },
+  "sourceRefs": [
+    {
+      "kind": "file",
+      "value": "plan.md",
+      "label": "plan.md",
+      "size": 3625,
+      "copied": true
+    },
+    {
+      "kind": "file",
+      "value": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/references/source-1-plan.md",
+      "label": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/references/source-1-plan.md",
+      "size": 3625,
+      "copied": true
+    },
+    {
+      "kind": "file",
+      "value": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/SKILL.md",
+      "label": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrupl5eu/SKILL.md",
+      "size": 3721,
+      "copied": true
+    },
+    {
+      "kind": "file",
+      "value": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/references/source-3-SKILL.md",
+      "label": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/references/source-3-SKILL.md",
+      "size": 3721,
+      "copied": true
+    },
+    {
+      "kind": "file",
+      "value": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/references/source-2-source-1-plan.md",
+      "label": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/references/source-2-source-1-plan.md",
+      "size": 3625,
+      "copied": true
+    },
+    {
+      "kind": "file",
+      "value": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/references/source-1-plan.md",
+      "label": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/references/source-1-plan.md",
+      "size": 3625,
+      "copied": true
+    },
+    {
+      "kind": "file",
+      "value": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/SKILL.md",
+      "label": "plugin-source/plan-bold-editorial-cv-for-pol-mart-de-tera-mrxar15s/SKILL.md",
+      "size": 3721,
+      "copied": true
+    }
+  ]
+}

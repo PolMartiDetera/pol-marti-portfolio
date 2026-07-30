@@ -1,0 +1,2723 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pol-Martí de Tera — Estudiante de Ingeniería Informática en LaSalle. Apasionado por la tecnología y el futuro de la computación.">
+<title>Pol-Martí de Tera — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.0/build/three.min.js"></script>
+<script crossorigin="" src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin="" src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<style>
+  @font-face { font-family: 'Genera'; font-weight: 600; font-style: normal; src: url('genera-font/Genera-SemiBold.ttf') format('truetype'); font-display: swap; }
+
+  :root {
+    --bg:      oklch(97% 0.003 80);
+    --surface: oklch(100% 0 0);
+    --fg:      oklch(16% 0.01 260);
+    --muted:   oklch(40% 0.01 260);
+    --border:  oklch(90% 0.005 80);
+    --accent:  oklch(55% 0.15 45);
+
+    --font-display: 'Genera', sans-serif;
+    --font-body:    'DM Sans', 'Futura', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+
+  ::selection { background: color-mix(in oklch, var(--accent) 35%, transparent); color: var(--fg); }
+  ::-moz-selection { background: color-mix(in oklch, var(--accent) 35%, transparent); color: var(--fg); }
+
+  /* ── Ambient mouse glow (desktop) ── */
+  @media (hover: hover) and (pointer: fine) {
+    .mouse-glow {
+      position: fixed; pointer-events: none; z-index: 9998;
+      inset: -200px;
+      background: radial-gradient(
+        circle 280px at var(--glow-x, 50%) var(--glow-y, 50%),
+        color-mix(in oklch, var(--accent) 8%, transparent) 0%,
+        transparent 70%
+      );
+      opacity: 0; transition: opacity 0.6s ease;
+      will-change: transform;
+    }
+    .mouse-glow.active { opacity: 1; }
+  }
+
+  .skip-link {
+    position: absolute; top: -100%; left: 1rem;
+    background: var(--fg); color: var(--surface);
+    padding: 0.5rem 1rem; border-radius: 0 0 6px 6px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    z-index: 200; transition: top 0.15s ease;
+  }
+  .skip-link:focus { top: 0; }
+
+  body {
+    font-family: var(--font-body);
+    background: transparent; color: var(--fg);
+    line-height: 1.6; font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture */
+  body::after {
+    content: ''; position: fixed; inset: 0; opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999;
+  }
+
+  /* ── Nav ── */
+  .nav {
+    position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+    z-index: 106;
+    background: color-mix(in oklch, var(--surface) 25%, transparent);
+    backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+    border: 1px solid color-mix(in oklch, var(--border) 30%, transparent);
+    border-radius: 14px; padding: 0 1.25rem;
+    min-width: min(calc(100vw - 2rem), 1100px);
+    box-shadow: 0 4px 24px color-mix(in oklch, var(--fg) 6%, transparent);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; height: 56px;
+  }
+  .nav-logo {
+    font-family: var(--font-display); font-weight: 600; font-size: 14px;
+    letter-spacing: -0.02em; color: var(--fg); text-decoration: none; text-transform: uppercase;
+  }
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; position: relative; }
+  .nav-links {
+    position: absolute; top: calc(100% + 10px); right: 0;
+    min-width: 210px;
+    background: color-mix(in oklch, var(--surface) 72%, transparent);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border: 1px solid color-mix(in oklch, var(--border) 35%, transparent); border-radius: 12px;
+    padding: 0.5rem;
+    display: flex; flex-direction: column; gap: 2px;
+    list-style: none; margin: 0;
+    opacity: 0; visibility: hidden;
+    transform-origin: top right;
+    transform: scale(0.92);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s 0.2s;
+  }
+  .nav-links.open {
+    opacity: 1; visibility: visible; transform: scale(1);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 105;
+  }
+  .nav-links li { list-style: none; }
+  .nav-links a {
+    font-size: 14px; font-weight: 600; color: var(--muted);
+    text-decoration: none; text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.65rem 1rem; display: block; border-radius: 6px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .nav-links a:hover { background: color-mix(in oklch, var(--surface) 50%, transparent); color: var(--fg); }
+
+  .nav-overlay {
+    position: fixed; inset: 0; z-index: 104;
+    display: none;
+  }
+  .nav-overlay.open { display: block; }
+
+  .lang-toggle {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: transparent; border: 1.5px solid var(--border);
+    border-radius: 4px; padding: 0.45rem 0.6rem; color: var(--muted);
+    cursor: pointer; transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .lang-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ── Hamburger (morphing) ── */
+  .hamburger {
+    display: flex; align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer;
+    width: 44px; height: 44px; position: relative; z-index: 110;
+    padding: 0;
+  }
+  .hamburger svg { width: 24px; height: 24px; overflow: visible; }
+  .hamburger .line-top,
+  .hamburger .line-mid,
+  .hamburger .line-bot {
+    fill: none; stroke: var(--fg); stroke-width: 2;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  /* ── Layout ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  section { border-bottom: 1px solid var(--border); position: relative; z-index: 1; }
+  section:last-of-type { border-bottom: none; }
+
+  /* ── Hero ── */
+  .hero { padding-block: 8rem 5rem; position: relative; overflow: hidden; }
+
+  .hero-bg {
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+  }
+  .hero > :not(.hero-bg) { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-size: 13px; font-weight: 500; color: var(--accent);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.25rem;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 7.5rem);
+    font-weight: 900; line-height: 0.88; letter-spacing: -0.06em;
+    text-transform: uppercase; margin-bottom: 1.75rem; color: var(--fg);
+    text-align: left;
+  }
+  .hero h1 .line { display: block; overflow: clip; overflow-clip-margin: 0.15em; min-height: 1lh; }
+  .hero h1 .line-inner {
+    display: block; transform: translateY(105%);
+  }
+
+  .hero-subtitle {
+    font-size: 18px; color: var(--muted); max-width: 520px;
+    line-height: 1.55; margin-bottom: 2rem; font-weight: 400;
+  }
+  .rotating-text {
+    color: var(--accent); font-weight: 600;
+    display: inline-block; position: relative;
+  }
+  .rotating-text::after {
+    content: ''; position: absolute; right: -3px; top: 0; height: 100%;
+    width: 2px; background: var(--accent); animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .hero-pullquote {
+    font-family: var(--font-display); font-size: clamp(15px, 2vw, 18px);
+    font-style: italic; color: var(--muted); max-width: 480px;
+    line-height: 1.55; margin-bottom: 2rem;
+    border-left: 2px solid var(--accent); padding-left: 1rem;
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--font-body); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.7rem 1.4rem; border-radius: 4px; border: none;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease;
+    position: relative; overflow: hidden;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary { background: var(--accent); color: var(--surface); }
+  .btn-primary:hover { filter: brightness(1.1); }
+
+  .btn-secondary { background: transparent; color: var(--fg); border: 1.5px solid var(--border); }
+  .btn-secondary:hover { border-color: var(--muted); }
+
+  /* ── Section headings (editorial) ── */
+  .section-heading {
+    font-family: var(--font-display); font-size: clamp(32px, 4.5vw, 50px);
+    font-weight: 600; letter-spacing: -0.04em; text-transform: uppercase;
+    color: var(--fg); margin-bottom: 2rem; padding-bottom: 0.75rem;
+    display: flex; align-items: baseline; gap: 0.6rem;
+  }
+  .section-num {
+    font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    color: var(--accent); letter-spacing: 0.08em;
+    vertical-align: super; flex-shrink: 0; margin-top: 0.4rem;
+  }
+
+  .section-label {
+    font-size: 11px; font-weight: 500; color: var(--muted);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem;
+  }
+
+  /* ── About ── */
+  #about { padding-block: 3.5rem 0; }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 280px;
+    gap: 3rem; align-items: start;
+  }
+  .about-text { font-size: 16px; color: var(--muted); line-height: 1.7; }
+  .about-text strong { color: var(--fg); font-weight: 600; }
+
+  .about-portrait {
+    width: 100%; aspect-ratio: 3/4; border-radius: 4px;
+    object-fit: cover; filter: grayscale(0.2);
+    transition: filter 0.4s ease, transform 0.4s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .about-portrait:hover { filter: grayscale(0); transform: scale(1.02); }
+
+  /* ── Skills ── */
+  #skills { padding-block: 5rem 0; }
+
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    padding: 1.25rem 1.5rem;
+    background: color-mix(in oklch, var(--bg) 25%, transparent);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border); border-radius: 10px;
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1),
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+    position: relative; overflow: hidden;
+  }
+  .skill-group::before {
+    content: ''; position: absolute; left: 0; top: 8%; height: 84%;
+    width: 3px; background: color-mix(in oklch, var(--accent) 50%, transparent);
+    border-radius: 0 3px 3px 0;
+    transition: height 0.2s ease, background 0.2s ease;
+  }
+  .skill-group:hover::before {
+    height: 92%; top: 4%;
+    background: var(--accent);
+  }
+  .skill-group:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px color-mix(in oklch, var(--fg) 8%, transparent);
+    border-color: color-mix(in oklch, var(--accent) 30%, var(--border));
+  }
+
+  .skill-group h3 {
+    font-family: var(--font-display); font-size: 14px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--fg); margin-bottom: 0.75rem;
+  }
+  .skill-group ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .skill-group li { font-size: 14px; color: var(--muted); font-weight: 500; padding: 0.2rem 0; }
+
+  /* Skill bar animation */
+  .skill-bar {
+    position: absolute; bottom: 0; left: 0; height: 2px;
+    background: var(--accent); width: 0;
+    transition: width 0.8s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .skill-group.visible .skill-bar { width: 100%; }
+
+  /* ── Projects ── */
+  #projects { padding-block: 3.5rem 0; }
+
+  /* 3D Showcase */
+  .showcase-3d {
+    display: grid; grid-template-columns: 1fr 340px;
+    gap: 1.5rem; margin-bottom: 2.5rem;
+  }
+
+  .model-viewer-wrap {
+    position: relative; background: color-mix(in oklch, var(--fg) 5%, var(--bg));
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border); border-radius: 8px;
+    overflow: hidden; aspect-ratio: 4/3;
+  }
+
+  model-viewer {
+    width: 100%; height: 100%;
+    --poster-color: transparent;
+  }
+  model-viewer::part(default-progress-bar) {
+    display: none;
+  }
+
+  .model-loading {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem; background: color-mix(in oklch, var(--fg) 5%, var(--bg));
+    transition: opacity 0.5s ease;
+    z-index: 2;
+  }
+  .model-loading.hidden { opacity: 0; pointer-events: none; }
+  .model-loading.hidden .model-loading-spinner { animation-play-state: paused; }
+
+  .model-error {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.75rem; background: color-mix(in oklch, var(--fg) 5%, var(--bg));
+    z-index: 2;
+  }
+  .model-error.hidden { opacity: 0; pointer-events: none; }
+  .model-error-icon { width: 28px; height: 28px; opacity: 0.5; display: inline-flex; align-items: center; }
+  .model-error-text {
+    font-size: 12px; font-weight: 600; color: var(--muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  .model-loading-spinner {
+    width: 40px; height: 40px; border: 3px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .model-loading-text {
+    font-size: 12px; font-weight: 600; color: var(--muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  .model-controls {
+    position: absolute; bottom: 12px; right: 12px;
+    display: flex; gap: 6px; z-index: 5;
+  }
+  .model-btn {
+    width: 44px; height: 44px; border-radius: 6px;
+    background: color-mix(in oklch, var(--surface) 90%, transparent);
+    border: 1px solid var(--border); color: var(--fg);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 14px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    backdrop-filter: blur(8px);
+  }
+  .model-btn:hover { background: var(--surface); border-color: var(--accent); }
+  .model-btn.active { background: var(--accent); color: var(--surface); border-color: var(--accent); }
+  .model-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .model-label {
+    position: absolute; top: 12px; left: 12px; z-index: 5;
+    font-size: 11px; font-weight: 500; color: var(--muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: color-mix(in oklch, var(--surface) 85%, transparent);
+    padding: 0.3rem 0.6rem; border-radius: 3px;
+    backdrop-filter: blur(8px);
+  }
+
+  /* Thumbnail grid */
+  .model-thumbs {
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+
+  .model-thumb {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1rem; border-radius: 6px;
+    background: color-mix(in oklch, var(--surface) 75%, transparent);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--border);
+    cursor: pointer; transition: all 0.2s ease;
+    text-decoration: none; color: inherit;
+  }
+  .model-thumb:hover { border-color: var(--accent); transform: translateX(4px); }
+  .model-thumb.active {
+    border-color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 6%, var(--surface));
+  }
+
+  .thumb-icon {
+    width: 44px; height: 44px; border-radius: 4px;
+    background: color-mix(in oklch, var(--accent) 10%, var(--bg));
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .thumb-icon svg { width: 24px; height: 24px; }
+
+  .thumb-info { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+  .thumb-name {
+    font-size: 13px; font-weight: 700; color: var(--fg);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .thumb-meta { font-size: 11px; color: var(--muted); font-weight: 500; }
+
+  /* Project cards */
+  .projects-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .projects-grid > * { min-width: 0; }
+
+  .project-card {
+    background: color-mix(in oklch, var(--bg) 25%, transparent);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.75rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1),
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+    position: relative; overflow: hidden; z-index: 1;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px color-mix(in oklch, var(--fg) 8%, transparent);
+    border-color: color-mix(in oklch, var(--accent) 30%, var(--border));
+  }
+  .project-card.accent-warm { border-left: 3px solid var(--accent); }
+  .project-card.accent-warm:hover { border-left-color: var(--accent); }
+  .project-card.accent-cool { border-left: 3px solid var(--accent); }
+  .project-card.accent-cool:hover { border-left-color: var(--accent); }
+  .project-card.accent-green { border-left: 3px solid var(--accent); }
+  .project-card.accent-green:hover { border-left-color: var(--accent); }
+  .project-card .project-tag {
+    font-family: 'Cascadia Code', 'JetBrains Mono', 'Fira Code', monospace;
+  }
+  .project-card:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+
+  .project-visual {
+    width: 100%; aspect-ratio: 16/10; border-radius: 4px;
+    background: color-mix(in oklch, var(--accent) 12%, var(--bg));
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .project-visual svg { width: 80%; height: 80%; }
+
+  .project-info { display: flex; flex-direction: column; gap: 0.5rem; }
+  .project-title {
+    font-family: var(--font-display); font-size: 19px; font-weight: 600;
+    letter-spacing: -0.01em; color: var(--fg);
+  }
+  .project-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* ── Bento Card ── */
+  .bento-card {
+    background: color-mix(in oklch, var(--surface) 80%, transparent);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .bento-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .bento-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px; background: var(--border);
+  }
+  .bento-cell {
+    background: var(--surface); padding: 1rem;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.35rem; min-height: 80px;
+  }
+  .bento-tall {
+    grid-row: span 2; min-height: 160px;
+    align-items: flex-start; padding: 1.25rem;
+  }
+  .bento-wide { grid-column: span 2; }
+  .bento-stat-value {
+    font-size: 34px; font-weight: 600; font-family: var(--font-display);
+    color: var(--accent); line-height: 1;
+  }
+  .bento-stat-label {
+    font-size: 11px; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .bento-progress {
+    width: 100%; height: 4px; background: color-mix(in oklch, var(--border) 50%, transparent);
+    border-radius: 2px; margin-top: 4px; overflow: hidden;
+  }
+  .bento-bar { height: 100%; background: var(--accent); border-radius: 2px; }
+  .bento-icon {
+    width: 24px; height: 24px; color: var(--accent); opacity: 0.7;
+  }
+  .bento-icon svg { width: 100%; height: 100%; }
+  .bento-label {
+    font-size: 11px; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em; text-align: center;
+  }
+  .bento-sparkline { width: 100%; height: 32px; opacity: 0.6; }
+  .bento-footer {
+    padding: 0.65rem 1rem; font-size: 12px; font-weight: 600;
+    color: var(--muted); display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+  .bento-footer-arrow { color: var(--accent); display: inline-flex; align-items: center; }
+
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.25rem; }
+  .project-tag {
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    background: color-mix(in oklch, var(--accent) 10%, var(--bg));
+    padding: 0.2rem 0.55rem; border-radius: 3px; letter-spacing: 0.02em;
+  }
+
+  /* ── Micro:bit Simulator — idle animation ── */
+  .microbit-sim {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    padding: 0; width: 100%; height: 100%;
+    justify-content: center; position: relative;
+  }
+  .microbit-sim-canvas-wrap {
+    position: relative;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    max-width: 280px; aspect-ratio: 4/3;
+    animation: mb-float 3.5s ease-in-out infinite;
+  }
+  @keyframes mb-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .mb-board-frame {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.25));
+  }
+  .mb-grid {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(5, 1fr);
+    gap: 7px; padding: 0; width: 110px; height: 100px;
+  }
+  .mb-led {
+    border-radius: 50%; background: #252530;
+    transition: background 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+  }
+  .mb-led.on {
+    background: var(--accent, oklch(55% 0.15 45));
+    box-shadow: 0 0 8px 2px var(--accent, oklch(55% 0.15 45)),
+                inset 0 1px 1px rgba(255,255,255,0.2);
+  }
+  .mb-led.pipe {
+    background: oklch(65% 0.18 145);
+    box-shadow: 0 0 6px 1px oklch(65% 0.18 145);
+  }
+
+  /* ── Coming Soon idle animation ── */
+  @keyframes dash-draw {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -20; }
+  }
+  .dash-walk { animation: dash-draw 1.5s linear infinite; }
+
+  @keyframes pulse-text {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  .pulse-text { animation: pulse-text 2.5s ease-in-out infinite; }
+
+  /* ── Education ── */
+  #education { padding-block: 5rem 0; }
+  .edu-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .edu-item {
+    display: grid; grid-template-columns: 1fr auto; gap: 1rem;
+    align-items: start; padding: 1rem;
+    border-left: 2px solid var(--border);
+    background: color-mix(in oklch, var(--surface) 60%, transparent);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-radius: 6px;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .edu-item:hover { border-left-color: var(--accent); transform: translateX(4px); }
+  .edu-item h3 {
+    font-family: var(--font-display); font-size: 17px; font-weight: 600;
+    color: var(--accent); letter-spacing: -0.01em;
+  }
+  .edu-item p { font-size: 14px; color: var(--muted); margin-top: 0.15rem; }
+  .edu-date {
+    font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums;
+    font-weight: 500; white-space: nowrap;
+  }
+
+  /* ── Python Card (inside projects) ── */
+  .python-card {
+    grid-column: 1 / -1; padding: 1.75rem;
+    background: color-mix(in oklch, var(--bg) 25%, transparent);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 12px; display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .python-card-header { text-align: left; }
+  .python-card .project-title { margin-bottom: 0; }
+  .python-card .project-desc { font-size: 14px; color: var(--muted); margin-bottom: 0; }
+  .python-tabs {
+    display: flex; flex-wrap: wrap; gap: 4px;
+    border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;
+  }
+  .python-tab {
+    font-family: var(--font-body); font-size: 12px; font-weight: 600;
+    padding: 5px 12px; border-radius: 4px; border: none;
+    background: oklch(0.2 0.01 260); color: oklch(0.7 0 0);
+    cursor: pointer; transition: background 0.15s ease, color 0.15s ease;
+    white-space: nowrap; display: inline-flex; align-items: center; gap: 5px;
+  }
+  .tab-icon { width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; }
+  .tab-icon svg { width: 100%; height: 100%; }
+  .python-tab:hover { background: oklch(0.25 0.01 260); color: oklch(0.9 0 0); }
+  .python-tab.active { background: var(--accent); color: #fff; }
+  .python-code-panel {
+    background: oklch(0.12 0.01 260); border: 1px solid oklch(0.22 0.01 260);
+    border-radius: 6px; padding: 12px 16px; overflow-x: auto;
+    font-family: 'Cascadia Code', 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 13px; line-height: 1.6; color: oklch(0.85 0 0);
+    max-height: 200px; overflow-y: auto;
+  }
+  .python-code-panel code { white-space: pre; }
+  .python-code-panel .kw { color: #c792ea; }
+  .python-code-panel .fn { color: #82aaff; }
+  .python-code-panel .str { color: #c3e88d; }
+  .python-code-panel .cm { color: #546e7a; font-style: italic; }
+  .python-code-panel .num { color: #f78c6c; }
+  .python-code-panel .op { color: #89ddff; }
+  .python-code-panel .blt { color: #ffcb6b; }
+
+  .terminal-card {
+    background: var(--surface); border-radius: 10px;
+    overflow: hidden; border: 1px solid var(--border);
+    font-family: var(--font-body);
+    box-shadow: 0 2px 12px color-mix(in srgb, var(--fg) 6%, transparent);
+  }
+  .terminal-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+  }
+  .terminal-title {
+    font-size: 11px; font-weight: 600; color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .terminal-body {
+    padding: 16px; min-height: 200px; max-height: 320px;
+    overflow-y: auto; display: flex; flex-direction: column; gap: 6px;
+  }
+  .terminal-body::-webkit-scrollbar { width: 4px; }
+  .terminal-body::-webkit-scrollbar-track { background: transparent; }
+  .terminal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .terminal-line {
+    font-size: 13px; line-height: 1.6; color: var(--fg);
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .terminal-prompt { color: var(--accent); font-weight: 600; margin-right: 8px; }
+  .terminal-msg { color: var(--muted); }
+  .terminal-cmd { color: var(--fg); font-weight: 600; }
+  .terminal-input-line {
+    display: flex; align-items: center; gap: 0;
+    margin-top: 4px;
+  }
+  .terminal-input {
+    flex: 1; background: transparent; border: none; outline: none;
+    font-family: var(--font-body); font-size: 13px; color: var(--fg);
+    caret-color: var(--accent); padding: 2px 0;
+  }
+  .terminal-input::placeholder { color: var(--muted); }
+  .terminal-actions {
+    display: flex; flex-wrap: wrap; gap: 4px;
+    padding: 8px 14px 12px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+  .terminal-btn {
+    font-family: var(--font-body); font-size: 11px; font-weight: 600;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--muted); padding: 5px 10px; border-radius: 4px;
+    cursor: pointer; transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .terminal-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .terminal-btn:active { transform: scale(0.97); }
+  .terminal-error { color: var(--accent); }
+  .terminal-success { color: oklch(50% 0.12 150); }
+  .terminal-highlight { color: oklch(65% 0.1 85); }
+
+  /* ── Experience ── */
+  #experience { padding-block: 3.5rem 0; }
+  .exp-list { display: flex; flex-direction: column; gap: 1rem; }
+
+  .exp-item {
+    display: grid; grid-template-columns: 140px 1fr; gap: 1rem;
+    padding: 1.25rem;
+    background: color-mix(in oklch, var(--surface) 60%, transparent);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-radius: 6px; border: 1px solid var(--border);
+  }
+
+  .exp-date {
+    font-size: 13px; font-weight: 600; color: var(--muted);
+    font-variant-numeric: tabular-nums; padding-top: 0.2rem;
+  }
+  .exp-role {
+    font-family: var(--font-display); font-size: 17px; font-weight: 600;
+    color: var(--fg); letter-spacing: -0.01em;
+  }
+  .exp-company { font-size: 14px; font-weight: 600; color: var(--accent); margin-top: 0.1rem; }
+  .exp-desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-top: 0.5rem; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+  .exp-tag {
+    font-size: 11px; font-weight: 600; color: var(--muted);
+    background: color-mix(in oklch, var(--border) 60%, var(--bg));
+    padding: 0.2rem 0.55rem; border-radius: 3px;
+  }
+
+  /* ── Contact ── */
+  #contact { padding-block: 5rem 3rem; }
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+  .contact-item {
+    display: flex; flex-direction: column; gap: 0.25rem;
+    padding: 1.25rem;
+    background: color-mix(in oklch, var(--surface) 60%, transparent);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-radius: 6px; border: 1px solid var(--border);
+  }
+  .contact-label {
+    font-size: 11px; font-weight: 500; color: var(--muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .contact-value {
+    font-size: 15px; font-weight: 600; color: var(--fg);
+    text-decoration: none; letter-spacing: -0.01em;
+    transition: color 0.15s ease, transform 0.12s ease;
+  }
+  .contact-value:hover { color: var(--accent); transform: translateX(2px); }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 2rem 0; text-align: center;
+    font-size: 12px; color: var(--muted); letter-spacing: 0.08em;
+    text-transform: uppercase; border-top: 1px solid var(--border);
+  }
+
+  /* ── Motion: entrance ── */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slide-in-left {
+    from { opacity: 0; transform: translateX(-28px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .hero-eyebrow {
+    opacity: 0; animation: fade-up 0.5s cubic-bezier(0.2, 0, 0, 1) 0.1s forwards;
+  }
+  .hero-subtitle {
+    opacity: 0; animation: fade-up 0.5s cubic-bezier(0.2, 0, 0, 1) 0.55s forwards;
+  }
+  .hero-actions {
+    opacity: 0; animation: fade-up 0.5s cubic-bezier(0.2, 0, 0, 1) 0.7s forwards;
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.6s cubic-bezier(0.2, 0, 0, 1),
+                transform 0.6s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.gsap-reveal { transition: none; }
+
+  .reveal-stagger > * {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.2, 0, 0, 1),
+                transform 0.5s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .reveal-stagger.visible > * { opacity: 1; transform: translateY(0); }
+  .reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s; }
+  .reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.08s; }
+  .reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.16s; }
+  .reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.24s; }
+  .reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.32s; }
+  .reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.4s; }
+
+  /* Parallax depth containers */
+  .parallax-section {
+    transition: transform 0.1s linear;
+    will-change: transform;
+  }
+
+  /* Focus visible */
+  .btn:focus-visible,
+  .nav-links a:focus-visible,
+  .contact-value:focus-visible,
+  .skip-link:focus-visible,
+  .lang-toggle:focus-visible,
+  .model-thumb:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px;
+  }
+
+  /* ── Finger-trace canvas overlay (mobile drag) ── */
+  #trace-canvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 9999;
+    touch-action: none;
+  }
+
+  /* ── Proximity interaction ── */
+  .project-card, .skill-group, .edu-item, .exp-item, .model-thumb, .contact-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform, opacity;
+  }
+
+  .about-text, .about-portrait, .python-card, .showcase-3d {
+    will-change: transform, opacity;
+  }
+
+  /* ── Heading underline draw ── */
+  .section-heading {
+    position: relative;
+    background-image: linear-gradient(var(--accent), var(--accent));
+    background-size: 0% 2px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    transition: background-size 0.6s cubic-bezier(0.2, 0, 0, 1);
+    border-bottom: none;
+    padding-bottom: 0.75rem;
+  }
+  .section-heading.drawn {
+    background-size: 100% 2px;
+  }
+
+  /* ── Breathing pulse for alive feel ── */
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.015); }
+  }
+  .breathe { animation: breathe 4s ease-in-out infinite; }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--accent) 0%, transparent); }
+    50% { box-shadow: 0 0 20px 2px color-mix(in oklch, var(--accent) 12%, transparent); }
+  }
+  .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+
+  /* ── Card shine (cursor tracking) ── */
+  .shine-card { position: relative; overflow: hidden; }
+  .shine-card::before {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: radial-gradient(
+      circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      color-mix(in oklch, var(--surface) 30%, transparent) 0%,
+      transparent 40%
+    );
+    opacity: 0; transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .shine-card:hover::before { opacity: 1; }
+
+  /* ── Stagger-in variants for push ── */
+  .gs-hidden-left {
+    opacity: 0; transform: translateX(-60px) scale(0.96);
+    will-change: transform, opacity;
+  }
+  .gs-hidden-right {
+    opacity: 0; transform: translateX(60px) scale(0.96);
+    will-change: transform, opacity;
+  }
+  .gs-hidden-up {
+    opacity: 0; transform: translateY(40px) scale(0.97);
+    will-change: transform, opacity;
+  }
+  .gs-hidden-scale {
+    opacity: 0; transform: scale(0.92);
+    will-change: transform, opacity;
+  }
+
+  /* ── Contact breathing ── */
+  .contact-item {
+    transition: transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+  }
+  .contact-item:hover {
+    transform: translateY(-3px);
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-eyebrow, .hero-subtitle, .hero-actions {
+      animation: none; opacity: 1;
+    }
+    .hero h1 .line-inner { transform: none; }
+    .reveal { transition: none; opacity: 1; transform: none; }
+    .reveal-stagger > * { transition: none; opacity: 1; transform: none; }
+    .btn:hover, .btn:active { transform: none; }
+    .skill-group:hover { transform: none; box-shadow: none; }
+    .project-card:hover { transform: none; box-shadow: none; }
+    .contact-value:hover { transform: none; }
+    .edu-item:hover { border-left-color: var(--border); transform: none; }
+    .about-portrait:hover { transform: none; }
+    .model-thumb:hover { transform: none; }
+    .model-loading-spinner { animation: none; }
+    .mb-float { animation: none; }
+    .led-blink, .dash-walk, .pulse-text { animation: none; }
+    .section-heading { background-size: 100% 2px; }
+    .gs-hidden-left, .gs-hidden-right, .gs-hidden-up, .gs-hidden-scale {
+      opacity: 1; transform: none;
+    }
+    .shine-card::before { display: none; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+    .nav { padding: 0 1rem; }
+    #about, #skills, #projects, #education, #experience, #contact { padding-block: 5rem 0; }
+    .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .about-portrait { max-width: 200px; }
+    .showcase-3d { grid-template-columns: 1fr; }
+    .model-thumbs { flex-direction: row; overflow-x: auto; padding-bottom: 0.5rem; }
+    .model-thumb { min-width: 200px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .bento-grid { grid-template-columns: 1fr 1fr; }
+    .bento-tall { grid-row: span 1; min-height: auto; }
+    .bento-wide { grid-column: span 2; }
+    .terminal-btn { font-size: 10px; padding: 4px 7px; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .container { padding: 0 1.5rem; }
+    .hero { padding-block: 7.5rem 3rem; }
+  }
+
+  @media (max-width: 640px) {
+    #about, #skills, #projects, #education, #experience, #contact { padding-block: 4rem 0; }
+    .hero h1 { font-size: clamp(36px, 10vw, 56px); }
+    .hero-subtitle { font-size: 15px; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+    .section-heading { font-size: clamp(26px, 6vw, 34px); margin-bottom: 1.25rem; }
+    .about-portrait { max-width: 160px; }
+    .about-text p { margin-left: 0; margin-right: 0; }
+    .skill-group { padding: 1rem 1.15rem; }
+    .skill-group h3 { font-size: 13px; }
+    .skill-group li { font-size: 13px; }
+    .python-card { padding: 1.25rem; }
+    .python-code-panel { max-height: 140px; font-size: 12px; padding: 10px 12px; }
+    .terminal-body { min-height: 160px; max-height: 240px; }
+    .model-viewer-wrap { aspect-ratio: 1/1; }
+    .model-thumb { min-width: 160px; padding: 0.6rem 0.8rem; }
+    .thumb-name { font-size: 12px; }
+    .thumb-meta { font-size: 10px; }
+    .project-card { flex-direction: column; }
+    .project-visual { aspect-ratio: 16/10; }
+    .project-title { font-size: 17px; }
+    .project-desc { font-size: 13px; }
+    .project-desc p { margin-left: 0; margin-right: 0; }
+    .edu-item { padding: 1rem 0.5rem; }
+    .edu-date { font-size: 12px; }
+    .exp-item { padding: 1rem 0.5rem; }
+    .exp-role { font-size: 15px; }
+    .exp-desc { font-size: 13px; }
+    .exp-desc p { margin-left: 0; margin-right: 0; }
+    .contact-item { padding: 1rem 0.5rem; }
+    .contact-label { font-size: 11px; }
+    .contact-value { font-size: 14px; }
+    .footer { padding: 2rem 0; }
+    .footer p { font-size: 12px; }
+    section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .container { padding: 0 1.5rem; }
+    .hero { padding-block: 8rem 2.5rem; }
+
+    /* Mobile dropdown nav */
+    .nav { min-width: unset; width: calc(100vw - 2rem); left: 50%; transform: translateX(-50%); }
+    .nav-links {
+      background: color-mix(in oklch, var(--surface) 85%, transparent);
+      backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+    }
+    .nav-links a {
+      font-size: 15px; padding: 0.85rem 1rem;
+    }
+  }
+
+  /* ── Quote dividers (blurred glass cards) ── */
+  .quote-divider {
+    padding: 1.5rem 1.5rem; max-width: 700px; margin: 0 auto;
+  }
+  .quote-divider blockquote {
+    font-family: var(--font-display); font-size: 15px; font-weight: 400;
+    color: var(--muted); line-height: 1.6; letter-spacing: -0.01em;
+    margin: 0; padding: 1.5rem 2rem;
+    background: color-mix(in oklch, var(--bg) 25%, transparent);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid color-mix(in oklch, var(--border) 40%, transparent); border-radius: 14px;
+  }
+  .quote-divider blockquote span {
+    display: block; font-size: 11px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent); margin-top: 0.5rem;
+    font-style: normal;
+  }
+
+  @media (max-width: 640px) {
+    .quote-divider { padding: 1rem 1.5rem; }
+    .quote-divider blockquote { font-size: 14px; padding: 1.25rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<canvas id="trace-canvas" aria-hidden="true"></canvas>
+<a href="#main-content" class="skip-link" data-i18n="skip">Saltar al contenido</a>
+
+<!-- Nav -->
+<nav class="nav" data-od-id="main-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Pol-Martí</a>
+    <div class="nav-right">
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">
+        <svg viewBox="0 0 24 24">
+          <path class="line-top" d="M4 7L20 7"></path>
+          <path class="line-mid" d="M4 12L20 12"></path>
+          <path class="line-bot" d="M4 17L20 17"></path>
+        </svg>
+      </button>
+      <ul class="nav-links" id="mobileNav">
+        <li><a href="#about" data-i18n="nav_about">Sobre mí</a></li>
+        <li><a href="#skills" data-i18n="nav_skills">Habilidades</a></li>
+        <li><a href="#projects" data-i18n="nav_projects">Proyectos</a></li>
+        <li><a href="#projects">Python</a></li>
+        <li><a href="#education" data-i18n="nav_education">Educación</a></li>
+        <li><a href="#experience" data-i18n="nav_experience">Experiencia</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">Contacto</a></li>
+      </ul>
+      <button class="lang-toggle" id="langToggle" aria-label="Cambiar idioma" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</nav>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- 3D Background (body-level, fixed behind everything) -->
+<div class="hero-bg" id="heroBg"></div>
+
+<!-- Hero -->
+<header class="hero container" data-od-id="hero" id="main-content" tabindex="-1">
+  <p class="hero-eyebrow" data-i18n="hero_eyebrow">Estudiante de Ingeniería Informática</p>
+  <h1>
+    <span class="line"><span class="line-inner" data-i18n="hero_line1">Cómo funciona</span></span>
+    <span class="line"><span class="line-inner" id="typeLine"></span></span>
+  </h1>
+  <p class="hero-subtitle">
+    <span data-i18n="hero_sub_before">Estudiante apasionado por</span> <span class="rotating-text" id="rotatingText">tecnología</span><span data-i18n="hero_sub_after">. Con iniciativa, ganas de aprender y ganas de construir cosas que importan.</span>
+  </p>
+  <div class="hero-pullquote" data-i18n="hero_pullquote">
+    "Entender cómo funciona el mundo es el primer paso para cambiarlo."
+  </div>
+  <div class="hero-actions" id="heroActions"></div>
+</header>
+
+<!-- Quote ➞ About -->
+<div class="quote-divider reveal" data-od-id="quote-hero-about">
+  <blockquote data-i18n="quote_hero_about">
+    "La tecnología es mejor cuando une a las personas."<br>
+    <span>— Matt Mullenweg</span>
+  </blockquote>
+</div>
+
+<!-- About -->
+<section id="about" class="container reveal" data-od-id="about">
+  <div class="about-grid">
+    <div>
+      <h2 class="section-heading" data-i18n="about_heading"><span class="section-num">01</span> SOBRE MÍ</h2>
+      <p class="about-text" data-i18n="about_text">
+        Soy <strong>Pol-Martí de Tera</strong>, estudiante de Ingeniería Informática en LaSalle. Me fascina entender <strong>cómo funciona el mundo a nivel tecnológico</strong> y cómo podemos usar esa comprensión para construir el futuro. Soy trabajador, tengo iniciativa y me gusta aprender cosas nuevas cada día. Creo firmemente que la tecnología es la herramienta más poderosa que tenemos para hacer realidad nuestras ideas.
+      </p>
+    </div>
+    <img src="profile.png" alt="Foto de Pol-Martí de Tera" class="about-portrait" loading="lazy">
+  </div>
+</section>
+
+<!-- Quote ➞ Skills -->
+<div class="quote-divider reveal" data-od-id="quote-about-skills">
+  <blockquote data-i18n="quote_about_skills">
+    "Nunca dejes de aprender, porque la vida nunca deja de enseñar."<br>
+    <span>— Anónimo</span>
+  </blockquote>
+</div>
+
+<!-- Skills -->
+<section id="skills" class="container" data-od-id="skills">
+  <h2 class="section-heading reveal" data-i18n="skills_heading"><span class="section-num">02</span> HABILIDADES</h2>
+  <div class="skills-grid reveal-stagger">
+    <div class="skill-group">
+      <h3 data-i18n="skills_languages_title">Lenguajes</h3>
+      <ul>
+        <li>Python</li>
+        <li>JavaScript / TypeScript</li>
+        <li>HTML / CSS</li>
+        <li>Java</li>
+      </ul>
+      <div class="skill-bar"></div>
+    </div>
+    <div class="skill-group">
+      <h3 data-i18n="skills_tools_title">Herramientas</h3>
+      <ul>
+        <li>Onshape (CAD 3D)</li>
+        <li>Git / GitHub</li>
+        <li>VS Code</li>
+        <li>micro:bit</li>
+      </ul>
+      <div class="skill-bar"></div>
+    </div>
+    <div class="skill-group">
+      <h3 data-i18n="skills_concepts_title">Conceptos</h3>
+      <ul>
+        <li data-i18n="skill_data_structures">Estructuras de datos</li>
+        <li data-i18n="skill_algorithms">Algoritmos</li>
+        <li data-i18n="skill_oop">Programación orientada a objetos</li>
+        <li data-i18n="skill_web_dev">Desarrollo web</li>
+      </ul>
+      <div class="skill-bar"></div>
+    </div>
+    <div class="skill-group">
+      <h3 data-i18n="skills_soft_title">Habilidades blandas</h3>
+      <ul>
+        <li data-i18n="skill_initiative">Iniciativa</li>
+        <li data-i18n="skill_teamwork">Trabajo en equipo</li>
+        <li data-i18n="skill_problem_solving">Resolución de problemas</li>
+        <li data-i18n="skill_curiosity">Curiosidad</li>
+      </ul>
+      <div class="skill-bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Quote ➞ Projects -->
+<div class="quote-divider reveal" data-od-id="quote-skills-projects">
+  <blockquote data-i18n="quote_skills_projects">
+    "La mejor manera de predecir el futuro es inventarlo."<br>
+    <span>— Alan Kay</span>
+  </blockquote>
+</div>
+
+<!-- Projects -->
+<section id="projects" class="container" data-od-id="projects">
+  <h2 class="section-heading reveal" data-i18n="projects_heading"><span class="section-num">03</span> PROYECTOS</h2>
+
+  <!-- 3D Model Showcase -->
+  <div class="showcase-3d reveal">
+    <div class="model-viewer-wrap">
+      <div class="model-loading" id="modelLoading">
+        <div class="model-loading-spinner"></div>
+        <span class="model-loading-text" data-i18n="model_loading">Cargando modelo 3D...</span>
+      </div>
+      <div class="model-error hidden" id="modelError">
+        <span class="model-error-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></span>
+        <span class="model-error-text" data-i18n="model_error">No se pudo cargar el modelo</span>
+      </div>
+      <span class="model-label" id="modelLabel">Funel</span>
+      <model-viewer id="mainViewer" src="Funel---Funel.gltf" alt="Modelo 3D — Funel" camera-controls="" auto-rotate="" auto-rotate-delay="1000" rotation-per-second="25deg" shadow-intensity="0.6" shadow-softness="0.8" exposure="1.1" camera-orbit="45deg 55deg 1m" min-camera-orbit="auto auto 0.5m" max-camera-orbit="Infinity Infinity 4m" interaction-prompt="auto" style="width:100%;height:100%;background:transparent;"></model-viewer>
+      <div class="model-controls">
+        <button class="model-btn active" id="btnAutoRotate" title="Auto-rotate" aria-label="Auto-rotate">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-6.2-8.56"></path><polyline points="21 3 21 9 15 9"></polyline></svg>
+        </button>
+        <button class="model-btn" id="btnResetView" title="Reset view" aria-label="Reset view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m0-10.14l2.83 2.83m4.48 4.48l2.83 2.83"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="model-thumbs">
+      <button class="model-thumb active" data-model="Funel---Funel.gltf" data-label="Funel" data-alt="Modelo 3D — Funel">
+        <span class="thumb-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+        </span>
+        <span class="thumb-info">
+          <span class="thumb-name">Funel</span>
+          <span class="thumb-meta" data-i18n="thumb_funel_meta">Mecánico · Onshape</span>
+        </span>
+      </button>
+
+      <button class="model-thumb" data-model="Gear-Cover.gltf" data-label="Gear Cover" data-alt="Modelo 3D — Gear Cover">
+        <span class="thumb-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+        </span>
+        <span class="thumb-info">
+          <span class="thumb-name">Gear Cover</span>
+          <span class="thumb-meta" data-i18n="thumb_gear_meta">Engranajes · Onshape</span>
+        </span>
+      </button>
+
+      <button class="model-thumb" data-model="Reflector.gltf" data-label="Reflector" data-alt="Modelo 3D — Reflector">
+        <span class="thumb-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m0-10.14l2.83 2.83m4.48 4.48l2.83 2.83"></path><circle cx="12" cy="12" r="4"></circle></svg>
+        </span>
+        <span class="thumb-info">
+          <span class="thumb-name">Reflector</span>
+          <span class="thumb-meta" data-i18n="thumb_reflector_meta">Óptica · Onshape</span>
+        </span>
+      </button>
+
+      <button class="model-thumb" data-model="Part-Studio-1.gltf" data-label="Part Studio 1" data-alt="Modelo 3D — Part Studio 1">
+        <span class="thumb-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="12" x2="21" y2="12"></line><line x1="12" y1="3" x2="12" y2="21"></line></svg>
+        </span>
+        <span class="thumb-info">
+          <span class="thumb-name">Rueda</span>
+          <span class="thumb-meta" data-i18n="thumb_part1_meta">Mecánica · Onshape</span>
+        </span>
+      </button>
+
+      <button class="model-thumb" data-model="Part-Studio-1_6_.gltf" data-label="Part Studio 1.6" data-alt="Modelo 3D — Part Studio 1.6">
+        <span class="thumb-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon><line x1="12" y1="22" x2="12" y2="15.5"></line><polyline points="22 8.5 12 15.5 2 8.5"></polyline></svg>
+        </span>
+        <span class="thumb-info">
+          <span class="thumb-name">Custom Chair</span>
+          <span class="thumb-meta" data-i18n="thumb_part6_meta">Final project · Onshape</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Other projects -->
+  <div class="projects-grid reveal-stagger">
+
+    <!-- Flappy Bird — Idle Micro:bit Simulator -->
+    <article class="project-card shine-card accent-warm">
+      <div class="project-visual" style="background:color-mix(in oklch, var(--bg) 30%, transparent);min-height:260px;">
+        <div class="microbit-sim">
+          <div class="microbit-sim-canvas-wrap">
+            <svg class="mb-board-frame" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="30" y="10" width="140" height="110" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="1.5"/>
+              <circle cx="50" cy="108" r="4" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>
+              <circle cx="72" cy="108" r="4" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>
+              <circle cx="100" cy="108" r="4" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>
+              <circle cx="128" cy="108" r="4" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>
+              <circle cx="150" cy="108" r="4" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.4"/>
+              <circle cx="48" cy="30" r="5.5" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
+              <circle cx="152" cy="30" r="5.5" fill="none" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
+              <text x="48" y="32.5" text-anchor="middle" font-size="6.5" font-weight="600" fill="var(--accent)" opacity="0.5" font-family="var(--font-display)">A</text>
+              <text x="152" y="32.5" text-anchor="middle" font-size="6.5" font-weight="600" fill="var(--accent)" opacity="0.5" font-family="var(--font-display)">B</text>
+              <text x="100" y="138" text-anchor="middle" font-size="9" font-weight="600" fill="var(--muted)" font-family="var(--font-display)" letter-spacing="0.1em">micro:bit</text>
+            </svg>
+            <div class="mb-grid" id="mbGrid"></div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <h3 class="project-title">Flappy Bird — micro:bit</h3>
+        <p class="project-desc" data-i18n="project_microbit_desc">
+          Juego Flappy Bird implementado en micro:bit con sensores y LEDs. Programado desde cero como proyecto de aprendizaje de programación de hardware.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">micro:bit</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag" data-i18n="project_tag_hardware">Hardware</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Coming Soon / More projects ahead (replaces hours-of-code bento) -->
+    <article class="project-card shine-card accent-cool">
+      <div class="project-visual" style="background:color-mix(in oklch, var(--accent) 6%, var(--bg));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.75rem;min-height:140px;">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span class="pulse-text" style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);" data-i18n="project_coming_soon">Próximamente...</span>
+      </div>
+      <div class="project-info">
+        <h3 class="project-title" data-i18n="project_future_title">Más proyectos en camino</h3>
+        <p class="project-desc" data-i18n="project_future_desc">
+          Siempre aprendiendo. Próximamente: desarrollo web, apps y más proyectos de ingeniería. Cada día es una oportunidad para construir algo nuevo.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag" data-i18n="project_tag_learning">Aprendizaje continuo</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Python Playground — interactive code + terminal -->
+    <article class="python-card accent-green" data-od-id="python-card">
+      <div class="python-card-header">
+        <h3 class="project-title" style="display:flex;align-items:center;gap:6px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          <span data-i18n="python_heading">Python Playground</span>
+        </h3>
+        <p class="project-desc" data-i18n="python_desc">Ejercicios interactivos de Python — código visible y ejecutable</p>
+      </div>
+      <div class="python-tabs" role="tablist">
+        <button class="python-tab active" data-exercise="hello" role="tab">
+          <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v4M12 8v8M17 6v12"></path></svg></span>
+          <span data-i18n="python_hello">Hola</span>
+        </button>
+        <button class="python-tab" data-exercise="loop" role="tab">
+          <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-6.2-8.56"></path><polyline points="21 3 21 9 15 9"></polyline></svg></span>
+          <span data-i18n="python_loop">Bucles</span>
+        </button>
+        <button class="python-tab" data-exercise="fib" role="tab">
+          <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 14 15 20 7"></polyline></svg></span>
+          <span data-i18n="python_fib">Fibonacci</span>
+        </button>
+        <button class="python-tab" data-exercise="prime" role="tab">
+          <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-4.3-4.3"></path></svg></span>
+          <span data-i18n="python_prime">Primos</span>
+        </button>
+        <button class="python-tab" data-exercise="sort" role="tab">
+          <span class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></span>
+          <span data-i18n="python_sort">Ordenar</span>
+        </button>
+      </div>
+      <div class="python-code-panel" id="pythonCodePanel">
+        <code id="pythonCodeEl"></code>
+      </div>
+      <div class="terminal-card" style="border-radius:6px">
+        <div class="terminal-bar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title">Python 3.12 — REPL</span>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+          <div class="terminal-line"><span class="terminal-prompt">&gt;&gt;&gt;</span> <span class="terminal-msg" data-i18n="python_welcome">¡Bienvenido! Elige un ejercicio arriba</span></div>
+          <div class="terminal-line" id="terminalOutput"></div>
+          <div class="terminal-input-line">
+            <span class="terminal-prompt">&gt;&gt;&gt;</span>
+            <input type="text" class="terminal-input" id="terminalInput" placeholder="escribe Python aquí..." autofocus="" spellcheck="false" autocomplete="off">
+          </div>
+        </div>
+        <div class="terminal-actions">
+          <button class="terminal-btn" id="pythonRunBtn">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span data-i18n="python_run">Ejecutar</span>
+          </button>
+          <button class="terminal-btn" id="terminalClear">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
+            <span data-i18n="python_clear">Limpiar</span>
+          </button>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- Quote ➞ Education -->
+<div class="quote-divider reveal" data-od-id="quote-projects-education">
+  <blockquote data-i18n="quote_projects_education">
+    "La educación es el arma más poderosa para cambiar el mundo."<br>
+    <span>— Nelson Mandela</span>
+  </blockquote>
+</div>
+
+<!-- Education -->
+<section id="education" class="container" data-od-id="education">
+  <h2 class="section-heading reveal" data-i18n="education_heading"><span class="section-num">04</span> EDUCACIÓN</h2>
+  <div class="edu-list reveal-stagger">
+    <div class="edu-item">
+      <div>
+        <h3 data-i18n="edu_university">LaSalle — Ingeniería Informática</h3>
+        <p data-i18n="edu_university_desc">Titulación en Ingeniería Informática</p>
+      </div>
+      <span class="edu-date">2025 — 2029</span>
+    </div>
+    <div class="edu-item">
+      <div>
+        <h3 data-i18n="edu_bachillerato">Bachillerato de Ciencias y Tecnología</h3>
+        <p data-i18n="edu_bachillerato_desc">Formación preuniversitaria con orientación científica</p>
+      </div>
+      <span class="edu-date">2023 — 2025</span>
+    </div>
+  </div>
+</section>
+
+<!-- Quote ➞ Experience -->
+<div class="quote-divider reveal" data-od-id="quote-education-experience">
+  <blockquote data-i18n="quote_education_experience">
+    "Lo que sabemos es una gota; lo que ignoramos es el océano."<br>
+    <span>— Isaac Newton</span>
+  </blockquote>
+</div>
+
+<!-- Experience -->
+<section id="experience" class="container" data-od-id="experience">
+  <h2 class="section-heading reveal" data-i18n="experience_heading"><span class="section-num">05</span> EXPERIENCIA</h2>
+  <div class="exp-list reveal-stagger">
+
+    <article class="exp-item">
+      <span class="exp-date">2025</span>
+      <div>
+        <h3 class="exp-role" data-i18n="exp_student_role">Estudiante — Proyectos Académicos</h3>
+        <p class="exp-company" data-i18n="exp_student_company">Proyectos personales y de clase</p>
+        <p class="exp-desc" data-i18n="exp_student_desc">
+          Desarrollo de piezas CAD 3D en Onshape, programación de micro:bit, y proyectos de aprendizaje en Python y desarrollo web. Enfocado en aprender haciendo.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">Onshape</span>
+          <span class="exp-tag">Python</span>
+          <span class="exp-tag">micro:bit</span>
+          <span class="exp-tag">HTML/CSS</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- Quote ➞ Contact -->
+<div class="quote-divider reveal" data-od-id="quote-experience-contact">
+  <blockquote data-i18n="quote_experience_contact">
+    "Cualquier tecnología suficientemente avanzada es indistinguible de la magia."<br>
+    <span>— Arthur C. Clarke</span>
+  </blockquote>
+</div>
+
+<!-- Contact -->
+<section id="contact" class="container" data-od-id="contact">
+  <h2 class="section-heading reveal" data-i18n="contact_heading"><span class="section-num">06</span> CONTACTO</h2>
+  <div class="contact-grid reveal-stagger">
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <a href="mailto:pol@example.com" class="contact-value">pol@example.com</a>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">GitHub</span>
+      <a href="#" class="contact-value">github.com/pol-marti</a>
+    </div>
+    <div class="contact-item">
+      <span class="contact-label">LinkedIn</span>
+      <a href="#" class="contact-value">linkedin.com/in/pol-marti</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer container" data-od-id="footer">
+  <p data-i18n="footer_text">© 2026 Pol-Martí de Tera — Hecho con curiosidad</p>
+</footer>
+
+<script>
+(function () {
+  /* ── i18n ── */
+  var content = {
+    es: {
+      skip: 'Saltar al contenido',
+      nav_about: 'Sobre mí',
+      nav_skills: 'Habilidades',
+      nav_projects: 'Proyectos',
+      nav_education: 'Educación',
+      nav_experience: 'Experiencia',
+      nav_contact: 'Contacto',
+      hero_eyebrow: 'Estudiante de Ingeniería Informática',
+      hero_title: 'Cómo funciona\nel futuro',
+      hero_line1: 'Cómo funciona',
+      hero_sub_before: 'Estudiante apasionado por',
+      hero_sub_after: '. Con iniciativa, ganas de aprender y ganas de construir cosas que importan.',
+      hero_pullquote: 'Entender cómo funciona el mundo a nivel tecnológico y usar esa comprensión para construir el futuro.',
+      hero_cta_contact: 'Contacto',
+      hero_cta_projects: 'Ver proyectos',
+      about_heading: '<span class="section-num">01</span> SOBRE MÍ',
+      about_text: 'Soy <strong>Pol-Martí de Tera</strong>, estudiante de Ingeniería Informática en LaSalle. Me fascina entender <strong>cómo funciona el mundo a nivel tecnológico</strong> y cómo podemos usar esa comprensión para construir el futuro. Soy trabajador, tengo iniciativa y me gusta aprender cosas nuevas cada día. Creo firmemente que la tecnología es la herramienta más poderosa que tenemos para hacer realidad nuestras ideas.',
+      skills_heading: '<span class="section-num">02</span> HABILIDADES',
+      skills_languages_title: 'Lenguajes',
+      skills_tools_title: 'Herramientas',
+      skills_concepts_title: 'Conceptos',
+      skills_soft_title: 'Habilidades blandas',
+      skill_data_structures: 'Estructuras de datos',
+      skill_algorithms: 'Algoritmos',
+      skill_oop: 'Programación orientada a objetos',
+      skill_web_dev: 'Desarrollo web',
+      skill_initiative: 'Iniciativa',
+      skill_teamwork: 'Trabajo en equipo',
+      skill_problem_solving: 'Resolución de problemas',
+      skill_curiosity: 'Curiosidad',
+      projects_heading: '<span class="section-num">03</span> PROYECTOS',
+      model_loading: 'Cargando modelo 3D...',
+      model_error: 'No se pudo cargar el modelo',
+      thumb_funel_meta: 'Mecánico · Onshape',
+      thumb_gear_meta: 'Engranajes · Onshape',
+      thumb_reflector_meta: 'Óptica · Onshape',
+      thumb_part1_meta: 'Estudio · Onshape',
+      thumb_part6_meta: 'Variante · Onshape',
+      project_microbit_desc: 'Juego Flappy Bird implementado en micro:bit con sensores y LEDs. Programado desde cero como proyecto de aprendizaje de programación de hardware.',
+      project_tag_hardware: 'Hardware',
+      project_coming_soon: 'Próximamente...',
+      project_future_title: 'Más proyectos en camino',
+      project_future_desc: 'Siempre aprendiendo. Próximamente: desarrollo web, apps y más proyectos de ingeniería. Cada día es una oportunidad para construir algo nuevo.',
+      project_tag_learning: 'Aprendizaje continuo',
+      python_heading: 'PYTHON PLAYGROUND',
+      python_help: 'Ayuda',
+      python_hello: 'Hola',
+      python_loop: 'Bucles',
+      python_fib: 'Fibonacci',
+      python_prime: 'Primos',
+      python_sort: 'Ordenar',
+      python_clear: 'Limpiar',
+      python_desc: 'Ejercicios interactivos de Python — código visible y ejecutable',
+      python_run: 'Ejecutar',
+      python_welcome: 'Bienvenido! Elige un ejercicio arriba',
+      bento_hours: 'horas de código',
+      bento_cad: 'Diseño CAD',
+      bento_progress: 'progreso semanal',
+      bento_learning: 'aprendiendo',
+      bento_footer: 'cada día, un poco más',
+      education_heading: '<span class="section-num">04</span> EDUCACIÓN',
+      edu_university: 'LaSalle — Ingeniería Informática',
+      edu_university_desc: 'Titulación en Ingeniería Informática',
+      edu_bachillerato: 'Bachillerato de Ciencias y Tecnología',
+      edu_bachillerato_desc: 'Formación preuniversitaria con orientación científica',
+      experience_heading: '<span class="section-num">05</span> EXPERIENCIA',
+      exp_student_role: 'Estudiante — Proyectos Académicos',
+      exp_student_company: 'Proyectos personales y de clase',
+      exp_student_desc: 'Desarrollo de piezas CAD 3D en Onshape, programación de micro:bit, y proyectos de aprendizaje en Python y desarrollo web. Enfocado en aprender haciendo.',
+      contact_heading: '<span class="section-num">06</span> CONTACTO',
+      footer_text: '© 2026 Pol-Martí de Tera — Hecho con curiosidad',
+      quote_hero_about: '"La tecnología es mejor cuando une a las personas."<br><span>— Matt Mullenweg</span>',
+      quote_about_skills: '"Nunca dejes de aprender, porque la vida nunca deja de enseñar."<br><span>— Anónimo</span>',
+      quote_skills_projects: '"La mejor manera de predecir el futuro es inventarlo."<br><span>— Alan Kay</span>',
+      quote_projects_education: '"La educación es el arma más poderosa para cambiar el mundo."<br><span>— Nelson Mandela</span>',
+      quote_education_experience: '"Lo que sabemos es una gota; lo que ignoramos es el océano."<br><span>— Isaac Newton</span>',
+      quote_experience_contact: '"Cualquier tecnología suficientemente avanzada es indistinguible de la magia."<br><span>— Arthur C. Clarke</span>'
+    },
+    en: {
+      skip: 'Skip to content',
+      nav_about: 'About',
+      nav_skills: 'Skills',
+      nav_projects: 'Projects',
+      nav_education: 'Education',
+      nav_experience: 'Experience',
+      nav_contact: 'Contact',
+      hero_eyebrow: 'CS Student — LaSalle',
+      hero_title: 'How the future\nworks',
+      hero_line1: 'How the future',
+      hero_sub_before: 'Student passionate about',
+      hero_sub_after: '. Driven by initiative, eager to learn, and ready to build things that matter.',
+      hero_pullquote: 'Understanding how the world works at a technological level and using that understanding to build the future.',
+      hero_cta_contact: 'Contact',
+      hero_cta_projects: 'View projects',
+      about_heading: '<span class="section-num">01</span> ABOUT',
+      about_text: 'I\'m <strong>Pol-Martí de Tera</strong>, a Computer Science student at LaSalle. I\'m fascinated by understanding <strong>how the world works from a technological perspective</strong> and how we can use that understanding to build the future. I\'m hardworking, proactive, and I love learning new things every day. I firmly believe technology is the most powerful tool we have to turn our ideas into reality.',
+      skills_heading: '<span class="section-num">02</span> SKILLS',
+      skills_languages_title: 'Languages',
+      skills_tools_title: 'Tools',
+      skills_concepts_title: 'Concepts',
+      skills_soft_title: 'Soft Skills',
+      skill_data_structures: 'Data Structures',
+      skill_algorithms: 'Algorithms',
+      skill_oop: 'Object-Oriented Programming',
+      skill_web_dev: 'Web Development',
+      skill_initiative: 'Initiative',
+      skill_teamwork: 'Teamwork',
+      skill_problem_solving: 'Problem Solving',
+      skill_curiosity: 'Curiosity',
+      projects_heading: '<span class="section-num">03</span> PROJECTS',
+      model_loading: 'Loading 3D model...',
+      model_error: 'Could not load model',
+      thumb_funel_meta: 'Mechanical · Onshape',
+      thumb_gear_meta: 'Gears · Onshape',
+      thumb_reflector_meta: 'Optics · Onshape',
+      thumb_part1_meta: 'Studio · Onshape',
+      thumb_part6_meta: 'Variant · Onshape',
+      project_microbit_desc: 'Flappy Bird game built on micro:bit with sensors and LEDs. Coded from scratch as a hardware programming learning project.',
+      project_tag_hardware: 'Hardware',
+      project_coming_soon: 'Coming soon...',
+      project_future_title: 'More projects ahead',
+      project_future_desc: 'Always learning. Coming up: web development, apps, and more engineering projects. Every day is an opportunity to build something new.',
+      project_tag_learning: 'Continuous learning',
+      python_heading: 'PYTHON PLAYGROUND',
+      python_help: 'Help',
+      python_hello: 'Hello',
+      python_loop: 'Loops',
+      python_fib: 'Fibonacci',
+      python_prime: 'Primes',
+      python_sort: 'Sort',
+      python_clear: 'Clear',
+      python_desc: 'Interactive Python exercises — code is visible and runnable',
+      python_run: 'Run',
+      python_welcome: 'Welcome! Pick an exercise above',
+      bento_hours: 'hours of code',
+      bento_cad: 'CAD Design',
+      bento_progress: 'weekly progress',
+      bento_learning: 'learning',
+      bento_footer: 'one day at a time',
+      education_heading: '<span class="section-num">04</span> EDUCATION',
+      edu_university: 'LaSalle — Computer Science',
+      edu_university_desc: 'Computer Science degree',
+      edu_bachillerato: 'Science & Technology Baccalaureate',
+      edu_bachillerato_desc: 'Pre-university scientific education',
+      experience_heading: '<span class="section-num">05</span> EXPERIENCE',
+      exp_student_role: 'Student — Academic Projects',
+      exp_student_company: 'Personal and class projects',
+      exp_student_desc: '3D CAD parts in Onshape, micro:bit programming, and learning projects in Python and web development. Focused on learning by doing.',
+      contact_heading: '<span class="section-num">06</span> CONTACT',
+      footer_text: '© 2026 Pol-Martí de Tera — Built with curiosity',
+      quote_hero_about: '"Technology is best when it brings people together."<br><span>— Matt Mullenweg</span>',
+      quote_about_skills: '"Never stop learning, because life never stops teaching."<br><span>— Anonymous</span>',
+      quote_skills_projects: '"The best way to predict the future is to invent it."<br><span>— Alan Kay</span>',
+      quote_projects_education: '"Education is the most powerful weapon to change the world."<br><span>— Nelson Mandela</span>',
+      quote_education_experience: '"What we know is a drop; what we don\'t know is an ocean."<br><span>— Isaac Newton</span>',
+      quote_experience_contact: '"Any sufficiently advanced technology is indistinguishable from magic."<br><span>— Arthur C. Clarke</span>'
+    },
+    ca: {
+      skip: 'Salta al contingut',
+      nav_about: 'Sobre mi',
+      nav_skills: 'Habilitats',
+      nav_projects: 'Projectes',
+      nav_education: 'Educació',
+      nav_experience: 'Experiència',
+      nav_contact: 'Contacte',
+      hero_eyebrow: "Estudiant d'Enginyeria Informàtica",
+      hero_title: 'Com funciona\nel futur',
+      hero_line1: 'Com funciona',
+      hero_sub_before: 'Estudiant apassionat per',
+      hero_sub_after: '. Amb iniciativa, ganes d\'aprendre i ganes de construir coses que importen.',
+      hero_pullquote: 'Entendre com funciona el món a nivell tecnològic i usar aquesta comprensió per construir el futur.',
+      hero_cta_contact: 'Contacte',
+      hero_cta_projects: 'Veure projectes',
+      about_heading: '<span class="section-num">01</span> SOBRE MI',
+      about_text: 'Soc <strong>Pol-Martí de Tera</strong>, estudiant d\'Enginyeria Informàtica a LaSalle. Em fascina entendre <strong>com funciona el món des d\'una perspectiva tecnològica</strong> i com podem usar aquesta comprensió per construir el futur. Soc treballador, tinc iniciativa i m\'agrada aprendre coses noves cada dia. Crec fermament que la tecnologia és l\'eina més poderosa que tenim per fer realitat les nostres idees.',
+      skills_heading: '<span class="section-num">02</span> HABILITATS',
+      skills_languages_title: 'Llenguatges',
+      skills_tools_title: 'Eines',
+      skills_concepts_title: 'Conceptes',
+      skills_soft_title: 'Habilitats toves',
+      skill_data_structures: 'Estructures de dades',
+      skill_algorithms: 'Algoritmes',
+      skill_oop: 'Programació orientada a objectes',
+      skill_web_dev: 'Desenvolupament web',
+      skill_initiative: 'Iniciativa',
+      skill_teamwork: 'Treball en equip',
+      skill_problem_solving: 'Resolució de problemes',
+      skill_curiosity: 'Curiositat',
+      projects_heading: '<span class="section-num">03</span> PROJECTES',
+      model_loading: 'Carregant model 3D...',
+      model_error: 'No s\'ha pogut carregar el model',
+      thumb_funel_meta: 'Mecànic · Onshape',
+      thumb_gear_meta: 'Engranatges · Onshape',
+      thumb_reflector_meta: 'Òptica · Onshape',
+      thumb_part1_meta: 'Estudi · Onshape',
+      thumb_part6_meta: 'Variant · Onshape',
+      project_microbit_desc: 'Joc Flappy Bird implementat en micro:bit amb sensors i LEDs. Programat des de zero com a projecte d\'aprenentatge de programació de hardware.',
+      project_tag_hardware: 'Hardware',
+      project_coming_soon: 'Pròximament...',
+      project_future_title: 'Més projectes en camí',
+      project_future_desc: 'Sempre aprenent. Pròximament: desenvolupament web, apps i més projectes d\'enginyeria. Cada dia és una oportunitat per construir alguna cosa nova.',
+      project_tag_learning: 'Aprenentatge continu',
+      python_heading: 'PYTHON PLAYGROUND',
+      python_help: 'Ajuda',
+      python_hello: 'Hola',
+      python_loop: 'Bucles',
+      python_fib: 'Fibonacci',
+      python_prime: 'Primos',
+      python_sort: 'Ordenar',
+      python_clear: 'Netejar',
+      python_desc: 'Exercicis interactius de Python — codi visible i executable',
+      python_run: 'Executar',
+      python_welcome: 'Benvingut! Tria un exercici a dalt',
+      bento_hours: 'hores de codi',
+      bento_cad: 'Disseny CAD',
+      bento_progress: 'progres setmanal',
+      bento_learning: 'aprenent',
+      bento_footer: 'cada dia, una mica més',
+      education_heading: '<span class="section-num">04</span> EDUCACIÓ',
+      edu_university: 'LaSalle — Enginyeria Informàtica',
+      edu_university_desc: 'Titulació en Enginyeria Informàtica',
+      edu_bachillerato: 'Batxillerat de Ciències i Tecnologia',
+      edu_bachillerato_desc: 'Formació preuniversitària amb orientació científica',
+      experience_heading: '<span class="section-num">05</span> EXPERIÈNCIA',
+      exp_student_role: 'Estudiant — Projectes Acadèmics',
+      exp_student_company: 'Projectes personals i de classe',
+      exp_student_desc: 'Desenvolupament de peces CAD 3D a Onshape, programació de micro:bit, i projectes d\'aprenentatge en Python i desenvolupament web. Enfocat a aprendre fent.',
+      contact_heading: '<span class="section-num">06</span> CONTACTE',
+      footer_text: '© 2026 Pol-Martí de Tera — Fet amb curiositat',
+      quote_hero_about: '"La tecnologia és millor quan uneix a les persones."<br><span>— Matt Mullenweg</span>',
+      quote_about_skills: '"Mai deixis d\'aprendre, perquè la vida mai deixa d\'ensenyar."<br><span>— Anònim</span>',
+      quote_skills_projects: '"La millor manera de predir el futur és inventar-lo."<br><span>— Alan Kay</span>',
+      quote_projects_education: '"L\'educació és l\'arma més poderosa per canviar el món."<br><span>— Nelson Mandela</span>',
+      quote_education_experience: '"El que sabem és una gota; el que ignorem és l\'oceà."<br><span>— Isaac Newton</span>',
+      quote_experience_contact: '"Qualsevol tecnologia prou avançada és indistingible de la màgia."<br><span>— Arthur C. Clarke</span>'
+    }
+  };
+
+  var langOrder = ['es', 'en', 'ca'];
+  var langLabels = { es: 'EN', en: 'CA', ca: 'ES' };
+  var langAria = { es: 'Switch to English', en: 'Switch to Catalan', ca: 'Cambiar a español' };
+  var currentLang = localStorage.getItem('cv-lang') || 'es';
+  if (langOrder.indexOf(currentLang) === -1) currentLang = 'es';
+  var toggle = document.getElementById('langToggle');
+
+  function applyLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('cv-lang', lang);
+    document.documentElement.lang = lang;
+    toggle.textContent = langLabels[lang] || 'EN';
+    toggle.setAttribute('aria-label', langAria[lang] || 'Switch language');
+    toggle.setAttribute('aria-pressed', lang === 'es' ? 'false' : 'true');
+
+    var els = document.querySelectorAll('[data-i18n]');
+    els.forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (content[lang][key] !== undefined) {
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = content[lang][key];
+        } else {
+          el.innerHTML = content[lang][key];
+        }
+      }
+    });
+    window.dispatchEvent(new CustomEvent('pylangchange'));
+  }
+
+  toggle.addEventListener('click', function () {
+    var idx = langOrder.indexOf(currentLang);
+    applyLang(langOrder[(idx + 1) % langOrder.length]);
+  });
+
+  /* ── Hamburger menu (morphing SVG) ── */
+  var hamburgerBtn = document.getElementById('hamburgerBtn');
+  var mobileNav = document.getElementById('mobileNav');
+  var navOverlay = document.getElementById('navOverlay');
+
+  function closeNav() {
+    mobileNav.classList.remove('open');
+    if (navOverlay) navOverlay.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    if (typeof gsap !== 'undefined') {
+      var lt = hamburgerBtn.querySelector('.line-top');
+      var lm = hamburgerBtn.querySelector('.line-mid');
+      var lb = hamburgerBtn.querySelector('.line-bot');
+      gsap.to(lt, { attr: { d: 'M4 7L20 7' }, duration: 0.3, ease: 'back.inOut(1.7)' });
+      gsap.to(lm, { attr: { d: 'M4 12L20 12' }, opacity: 1, duration: 0.25, ease: 'power2.out' });
+      gsap.to(lb, { attr: { d: 'M4 17L20 17' }, duration: 0.3, ease: 'back.inOut(1.7)' });
+    }
+  }
+
+  function openNav() {
+    mobileNav.classList.add('open');
+    if (navOverlay) navOverlay.classList.add('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    if (typeof gsap !== 'undefined') {
+      var lt = hamburgerBtn.querySelector('.line-top');
+      var lm = hamburgerBtn.querySelector('.line-mid');
+      var lb = hamburgerBtn.querySelector('.line-bot');
+      gsap.to(lt, { attr: { d: 'M4 4L20 20' }, duration: 0.3, ease: 'back.inOut(1.7)' });
+      gsap.to(lm, { opacity: 0, duration: 0.15, ease: 'power2.in' });
+      gsap.to(lb, { attr: { d: 'M4 20L20 4' }, duration: 0.3, ease: 'back.inOut(1.7)' });
+    }
+  }
+
+  if (hamburgerBtn && mobileNav) {
+    hamburgerBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (mobileNav.classList.contains('open')) closeNav(); else openNav();
+    });
+    if (navOverlay) navOverlay.addEventListener('click', closeNav);
+    document.addEventListener('click', function (e) {
+      if (mobileNav.classList.contains('open') && !mobileNav.contains(e.target) && e.target !== hamburgerBtn && !hamburgerBtn.contains(e.target)) {
+        closeNav();
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mobileNav.classList.contains('open')) closeNav();
+    });
+    mobileNav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+        }
+        closeNav();
+        if (href && href.startsWith('#')) {
+          var target = document.querySelector(href);
+          if (target) {
+            var navH = document.querySelector('.nav').offsetHeight || 0;
+            var y = target.getBoundingClientRect().top + window.pageYOffset - navH - 40;
+            if (typeof gsap !== 'undefined' && typeof ScrollToPlugin !== 'undefined') {
+              gsap.to(window, { scrollTo: { y: y, autoKill: false }, duration: 1.5, ease: 'power2.inOut' });
+            } else {
+              window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+            setTimeout(function () { if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(); }, 700);
+          }
+        }
+      });
+    });
+  }
+
+  applyLang(currentLang);
+
+  /* ── Motion: hero line split animation ── */
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReduced) {
+    var lineInners = document.querySelectorAll('.hero h1 .line-inner');
+    lineInners.forEach(function (el, i) {
+      el.style.transition = 'transform 0.6s cubic-bezier(0.2, 0, 0, 1) ' + (0.15 + i * 0.12) + 's';
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          el.style.transform = 'translateY(0)';
+        });
+      });
+    });
+  } else {
+    document.querySelectorAll('.hero h1 .line-inner').forEach(function (el) {
+      el.style.transform = 'translateY(0)';
+    });
+  }
+
+  /* ── TextType: typing effect on hero second line ── */
+  if (!prefersReduced) {
+    (function () {
+      var el = document.getElementById('typeLine');
+      if (!el) return;
+      var phrases = { es: ['el futuro', 'el mañana', 'lo imposible'], en: ['works', 'builds', 'creates'], ca: ['el futur', 'el demà', 'l\'impossible'] };
+      var phraseIdx = 0, charIdx = 0, isDeleting = false;
+      var speed = 80;
+
+      // Reset the typing cycle when the language changes so the effect
+      // follows the active language instead of the one captured at init.
+      window.addEventListener('pylangchange', function () {
+        phraseIdx = 0; charIdx = 0; isDeleting = false;
+      });
+
+      function typeTick() {
+        var lang = currentLang || 'es';
+        var p = phrases[lang] || phrases.es;
+        var current = p[phraseIdx % p.length];
+        if (!isDeleting) {
+          charIdx++;
+          el.textContent = current.slice(0, charIdx);
+          if (charIdx === current.length) {
+            setTimeout(function () { isDeleting = true; typeTick(); }, 2000);
+            return;
+          }
+        } else {
+          charIdx--;
+          el.textContent = current.slice(0, charIdx);
+          if (charIdx === 0) {
+            isDeleting = false;
+            phraseIdx = (phraseIdx + 1) % p.length;
+          }
+        }
+        setTimeout(typeTick, isDeleting ? 40 : speed);
+      }
+      setTimeout(typeTick, 700);
+    })();
+  }
+
+  /* ── RotatingText: cycle words in subtitle ── */
+  if (!prefersReduced) {
+    (function () {
+      var cycles = { es: ['la tecnología', 'el diseño', 'la ingeniería'], en: ['technology', 'design', 'engineering'], ca: ['la tecnologia', 'el disseny', "l'enginyeria"] };
+      var idx = 0;
+      window.rotatingIdx = 0;
+      setInterval(function () {
+        var el = document.getElementById('rotatingText');
+        if (!el) return;
+        var words = cycles[currentLang] || cycles.es;
+        idx = (idx + 1) % words.length;
+        window.rotatingIdx = idx;
+        gsap.to(el, { opacity: 0, y: -8, duration: 0.15, ease: 'power2.in', onComplete: function () {
+          el.textContent = words[idx];
+          gsap.to(el, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' });
+        }});
+      }, 2500);
+    })();
+  }
+
+  /* ── Ambient mouse glow (desktop) ── */
+  var isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!prefersReduced && isDesktop) {
+    var glow = document.createElement('div');
+    glow.className = 'mouse-glow';
+    document.body.appendChild(glow);
+    var glowActive = false;
+    document.addEventListener('mousemove', function (e) {
+      glow.style.setProperty('--glow-x', e.clientX + 'px');
+      glow.style.setProperty('--glow-y', e.clientY + 'px');
+      if (!glowActive) { glowActive = true; glow.classList.add('active'); }
+    });
+    document.addEventListener('mouseleave', function () {
+      glowActive = false; glow.classList.remove('active');
+    });
+  }
+
+  /* ── Finger-trace glow blob (mobile) ── */
+  if (!prefersReduced && !isDesktop) {
+    var canvas = document.getElementById('trace-canvas');
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+
+    /* Read accent from CSS variable, fallback to orange */
+    var accentCss = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+    var ACCENT_R = 215, ACCENT_G = 87, ACCENT_B = 42;
+    if (accentCss) {
+      var m = accentCss.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+      if (m) { ACCENT_R = parseInt(m[1], 16); ACCENT_G = parseInt(m[2], 16); ACCENT_B = parseInt(m[3], 16); }
+    }
+
+    /* Target and current finger position (current lerps toward target) */
+    var tx = 0, ty = 0, cx = 0, cy = 0;
+    var active = false;
+    var glowAlpha = 0;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (active) {
+        /* Smoothly chase the finger */
+        cx += (tx - cx) * 0.2;
+        cy += (ty - cy) * 0.2;
+        glowAlpha = Math.min(1, glowAlpha + 0.08);
+      } else {
+        glowAlpha = Math.max(0, glowAlpha - 0.03);
+      }
+
+      if (glowAlpha > 0.01) {
+        /* Main glow — large soft radial gradient */
+        var grad = ctx.createRadialGradient(cx * dpr, cy * dpr, 0, cx * dpr, cy * dpr, 120 * dpr);
+        grad.addColorStop(0, 'rgba(' + ACCENT_R + ',' + ACCENT_G + ',' + ACCENT_B + ',' + (0.15 * glowAlpha) + ')');
+        grad.addColorStop(0.3, 'rgba(' + ACCENT_R + ',' + ACCENT_G + ',' + ACCENT_B + ',' + (0.06 * glowAlpha) + ')');
+        grad.addColorStop(1, 'rgba(' + ACCENT_R + ',' + ACCENT_G + ',' + ACCENT_B + ',0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    document.addEventListener('touchstart', function (e) {
+      if (e.target.closest('a, button, .btn, .lang-toggle, .hamburger, .model-thumb, .contact-item a, [role="button"]')) return;
+      var touch = e.touches[0];
+      tx = touch.clientX; ty = touch.clientY;
+      cx = tx; cy = ty;
+      active = true;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function (e) {
+      if (!active) return;
+      var touch = e.touches[0];
+      tx = touch.clientX; ty = touch.clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function () {
+      active = false;
+    }, { passive: true });
+
+    document.addEventListener('touchcancel', function () {
+      active = false;
+    }, { passive: true });
+  }
+
+  /* Active state feedback on interactive elements (mobile) */
+  if (!prefersReduced && !isDesktop) {
+    document.querySelectorAll('a, button, .btn, .lang-toggle, .hamburger, .model-thumb, .contact-item a, [role="button"]').forEach(function (el) {
+      el.addEventListener('touchstart', function () {
+        this.style.opacity = '0.7';
+      }, { passive: true });
+      el.addEventListener('touchend', function () {
+        var self = this;
+        setTimeout(function () { self.style.opacity = ''; }, 150);
+      }, { passive: true });
+      el.addEventListener('touchcancel', function () {
+        this.style.opacity = '';
+      }, { passive: true });
+    });
+  }
+
+  /* ── GSAP: push/slide scroll animations ── */
+  if (!prefersReduced && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    /* Clear CSS transitions so GSAP fully owns the animation state (no .visible — GSAP manages opacity/transform via inline styles) */
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(function (el) {
+      el.style.transition = 'none';
+      Array.from(el.children).forEach(function (child) {
+        child.style.transition = 'none';
+      });
+      /* Quote dividers don't have GSAP animations — make them visible */
+      if (el.classList.contains('quote-divider')) {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      }
+    });
+
+    /* Make #about section itself visible (it's always in viewport at load, only children animate) */
+    var aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      aboutSection.style.opacity = '1';
+      aboutSection.style.transform = 'none';
+    }
+
+    /* Heading underline draw on scroll */
+    gsap.utils.toArray('.section-heading').forEach(function (h) {
+      ScrollTrigger.create({
+        trigger: h,
+        start: 'top 95%',
+        onEnter: function () { h.classList.add('drawn'); },
+      }      );
+    });
+
+    /* Section headings — fade up (finger-responsive) */
+    gsap.utils.toArray('.section-heading.reveal').forEach(function (h) {
+      h.classList.add('gsap-reveal');
+      gsap.fromTo(h,
+        { y: 28, opacity: 0 },
+        { scrollTrigger: { trigger: h, start: 'top 90%', end: 'top 40%', scrub: 1 },
+          y: 0, opacity: 1, ease: 'none' }
+      );
+    });
+
+    /* About — play immediately (section is in viewport at load, no scroll-reverse possible) */
+    gsap.fromTo('#about .about-text',
+      { x: -80, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.2 }
+    );
+    gsap.fromTo('#about .about-portrait',
+      { x: 80, opacity: 0, scale: 0.92 },
+      { x: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out', delay: 0.35 }
+    );
+
+    /* Skills — slides from right (finger-responsive) */
+    gsap.fromTo('#skills .skill-group',
+      { x: 70, opacity: 0 },
+      { scrollTrigger: { trigger: '#skills', start: 'top 88%', end: 'top 35%', scrub: 1 },
+        x: 0, opacity: 1, ease: 'none',
+        stagger: { each: 0.06, from: 'start' } }
+    );
+
+    /* Python card — fade in (finger-responsive) */
+    gsap.fromTo('.python-card',
+      { y: 40, opacity: 0 },
+      { scrollTrigger: { trigger: '.python-card', start: 'top 90%', end: 'top 45%', scrub: 1 },
+        y: 0, opacity: 1, ease: 'none' }
+    );
+
+    /* 3D Model viewer — scale in (finger-responsive) */
+    gsap.fromTo('.showcase-3d',
+      { scale: 0.92, opacity: 0 },
+      { scrollTrigger: { trigger: '.showcase-3d', start: 'top 90%', end: 'top 45%', scrub: 1 },
+        scale: 1, opacity: 1, ease: 'none' }
+    );
+
+    /* Project cards — alternate left/right push (finger-responsive) */
+    gsap.utils.toArray('.project-card').forEach(function (card, i) {
+      gsap.fromTo(card,
+        { x: i % 2 === 0 ? -70 : 70, opacity: 0, scale: 0.96 },
+        { scrollTrigger: { trigger: card, start: 'top 90%', end: 'top 40%', scrub: 1 },
+          x: 0, opacity: 1, scale: 1, ease: 'none' }
+      );
+    });
+
+    /* Education — slide from left (finger-responsive) */
+    gsap.fromTo('#education .edu-item',
+      { x: -60, opacity: 0 },
+      { scrollTrigger: { trigger: '#education', start: 'top 88%', end: 'top 35%', scrub: 1 },
+        x: 0, opacity: 1, ease: 'none',
+        stagger: { each: 0.06, from: 'start' } }
+    );
+
+    /* Experience — slide from right (finger-responsive) */
+    gsap.fromTo('#experience .exp-item',
+      { x: 60, opacity: 0 },
+      { scrollTrigger: { trigger: '#experience', start: 'top 88%', end: 'top 35%', scrub: 1 },
+        x: 0, opacity: 1, ease: 'none' }
+    );
+
+    /* Contact — stagger up (finger-responsive) */
+    gsap.fromTo('.contact-item',
+      { y: 50, opacity: 0 },
+      { scrollTrigger: { trigger: '#contact', start: 'top 90%', end: 'top 40%', scrub: 1 },
+        y: 0, opacity: 1, ease: 'none',
+        stagger: { each: 0.06, from: 'start' } }
+    );
+
+  } else {
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(function (el) {
+      el.classList.add('visible');
+    });
+  }
+
+  /* ── Motion: shine tracking on cards ── */
+  if (!prefersReduced) {
+    var shineCards = document.querySelectorAll('.shine-card');
+    shineCards.forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width;
+        var y = (e.clientY - rect.top) / rect.height;
+        card.style.setProperty('--mouse-x', (x * 100) + '%');
+        card.style.setProperty('--mouse-y', (y * 100) + '%');
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.removeProperty('--mouse-x');
+        card.style.removeProperty('--mouse-y');
+      });
+    });
+  }
+
+  /* ── 3D Model Viewer ── */
+  var viewer = document.getElementById('mainViewer');
+  var loading = document.getElementById('modelLoading');
+  var modelError = document.getElementById('modelError');
+  var modelLabel = document.getElementById('modelLabel');
+  var thumbs = document.querySelectorAll('.model-thumb');
+  var btnAutoRotate = document.getElementById('btnAutoRotate');
+  var btnResetView = document.getElementById('btnResetView');
+
+  if (viewer) {
+    viewer.addEventListener('load', function () {
+      loading.classList.add('hidden');
+    });
+
+    viewer.addEventListener('error', function () {
+      loading.classList.add('hidden');
+      modelError.classList.remove('hidden');
+    });
+
+    /* Fallback: hide loading after 8s even if model doesn't load */
+    setTimeout(function () {
+      loading.classList.add('hidden');
+    }, 8000);
+  }
+
+  /* Thumbnail switching */
+  thumbs.forEach(function (thumb) {
+    thumb.addEventListener('click', function () {
+      thumbs.forEach(function (t) { t.classList.remove('active'); });
+      thumb.classList.add('active');
+
+      var modelSrc = thumb.getAttribute('data-model');
+      var label = thumb.getAttribute('data-label');
+      var alt = thumb.getAttribute('data-alt');
+
+      if (viewer) {
+        loading.classList.remove('hidden');
+        modelError.classList.add('hidden');
+        viewer.setAttribute('src', modelSrc);
+        viewer.setAttribute('alt', alt);
+        modelLabel.textContent = label;
+
+        viewer.addEventListener('load', function onLoad() {
+          loading.classList.add('hidden');
+          viewer.removeEventListener('load', onLoad);
+        });
+
+        viewer.addEventListener('error', function onError() {
+          loading.classList.add('hidden');
+          modelError.classList.remove('hidden');
+          viewer.removeEventListener('error', onError);
+        });
+
+        setTimeout(function () { loading.classList.add('hidden'); }, 6000);
+      }
+    });
+  });
+
+  /* Auto-rotate toggle */
+  if (btnAutoRotate && viewer) {
+    btnAutoRotate.addEventListener('click', function () {
+      var isRotating = viewer.autoRotate;
+      viewer.autoRotate = !isRotating;
+      btnAutoRotate.classList.toggle('active', !isRotating);
+    });
+  }
+
+  /* Reset view */
+  if (btnResetView && viewer) {
+    btnResetView.addEventListener('click', function () {
+      viewer.cameraOrbit = '45deg 55deg 1.5m';
+      viewer.fieldOfView = '30deg';
+    });
+  }
+
+  /* ── Python Terminal REPL + Code Viewer ── */
+  (function () {
+    var body = document.getElementById('terminalBody');
+    var input = document.getElementById('terminalInput');
+    var output = document.getElementById('terminalOutput');
+    var codeEl = document.getElementById('pythonCodeEl');
+    if (!body || !input || !output || !codeEl) return;
+
+    function addLine(text, cls) {
+      var d = document.createElement('div');
+      d.className = 'terminal-line';
+      if (cls) d.innerHTML = '<span class="terminal-prompt">&gt;&gt;&gt;</span> <span class="' + cls + '">' + text + '</span>';
+      else d.innerHTML = text;
+      body.insertBefore(d, body.lastElementChild);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    var history = [], hi = -1;
+    var responses = {
+      es: {
+        hello: '<span class="terminal-success">print("¡Hola, mundo!")</span><br>Hola, mundo!<br><span class="terminal-msg"># Tu primer programa Python</span>',
+        loop: '<span class="terminal-success">for i in range(5):<br>&nbsp;&nbsp;&nbsp;&nbsp;print(f"Iteración {i}")</span><br>Iteración 0<br>Iteración 1<br>Iteración 2<br>Iteración 3<br>Iteración 4',
+        fib: '<span class="terminal-success">def fib(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;a, b = 0, 1<br>&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(a, end=" ")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a, b = b, a+b<br>fib(10)</span><br>0 1 1 2 3 5 8 13 21 34',
+        prime: '<span class="terminal-success">def es_primo(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;if n &lt; 2: return False<br>&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2, int(n**0.5)+1):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if n % i == 0: return False<br>&nbsp;&nbsp;&nbsp;&nbsp;return True<br>primos = [n for n in range(20) if es_primo(n)]</span><br>[2, 3, 5, 7, 11, 13, 17, 19]',
+        sort: '<span class="terminal-success">nums = [64, 34, 25, 12, 22, 11, 90]<br>nums.sort()<br>print(nums)</span><br>[11, 12, 22, 25, 34, 64, 90]<br><span class="terminal-msg"># Ordenación ascendente</span>',
+        help: '<span class="terminal-highlight">╔══════════════════════════╗<br>║  Actividades disponibles  ║<br>╚══════════════════════════╝</span><br><br><span class="terminal-cmd">hello()</span> — Hola, mundo<br><span class="terminal-cmd">loop()</span> — Bucles for<br><span class="terminal-cmd">fib()</span> — Sucesión Fibonacci<br><span class="terminal-cmd">prime()</span> — Números primos<br><span class="terminal-cmd">sort()</span> — Ordenar lista<br><br><span class="terminal-msg">Escribe el nombre o pulsa un botón</span>',
+      },
+      en: {
+        hello: '<span class="terminal-success">print("Hello, world!")</span><br>Hello, world!<br><span class="terminal-msg"># Your first Python program</span>',
+        loop: '<span class="terminal-success">for i in range(5):<br>&nbsp;&nbsp;&nbsp;&nbsp;print(f"Iteration {i}")</span><br>Iteration 0<br>Iteration 1<br>Iteration 2<br>Iteration 3<br>Iteration 4',
+        fib: '<span class="terminal-success">def fib(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;a, b = 0, 1<br>&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(a, end=" ")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a, b = b, a+b<br>fib(10)</span><br>0 1 1 2 3 5 8 13 21 34',
+        prime: '<span class="terminal-success">def is_prime(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;if n &lt; 2: return False<br>&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2, int(n**0.5)+1):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if n % i == 0: return False<br>&nbsp;&nbsp;&nbsp;&nbsp;return True<br>primes = [n for n in range(20) if is_prime(n)]</span><br>[2, 3, 5, 7, 11, 13, 17, 19]',
+        sort: '<span class="terminal-success">nums = [64, 34, 25, 12, 22, 11, 90]<br>nums.sort()<br>print(nums)</span><br>[11, 12, 22, 25, 34, 64, 90]<br><span class="terminal-msg"># Ascending sort</span>',
+        help: '<span class="terminal-highlight">╔══════════════════════════╗<br>║  Available Activities     ║<br>╚══════════════════════════╝</span><br><br><span class="terminal-cmd">hello()</span> — Hello, world<br><span class="terminal-cmd">loop()</span> — For loops<br><span class="terminal-cmd">fib()</span> — Fibonacci sequence<br><span class="terminal-cmd">prime()</span> — Prime numbers<br><span class="terminal-cmd">sort()</span> — Sort a list<br><br><span class="terminal-msg">Type a command or click a button</span>',
+      }
+    };
+
+    var codeSources = {
+      es: {
+        hello: 'print("¡Hola, mundo!")\n# Tu primer programa Python',
+        loop: 'for i in range(5):\n    print(f"Iteración {i}")',
+        fib: 'def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        print(a, end=" ")\n        a, b = b, a + b\n\nfib(10)',
+        prime: 'def es_primo(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\nprimos = [n for n in range(20) if es_primo(n)]\nprint(primos)',
+        sort: 'nums = [64, 34, 25, 12, 22, 11, 90]\nnums.sort()\nprint(nums)\n# Ordenación ascendente',
+      },
+      en: {
+        hello: 'print("Hello, world!")\n# Your first Python program',
+        loop: 'for i in range(5):\n    print(f"Iteration {i}")',
+        fib: 'def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        print(a, end=" ")\n        a, b = b, a + b\n\nfib(10)',
+        prime: 'def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\nprimes = [n for n in range(20) if is_prime(n)]\nprint(primes)',
+        sort: 'nums = [64, 34, 25, 12, 22, 11, 90]\nnums.sort()\nprint(nums)\n# Ascending sort',
+      },
+    };
+
+    function highlightPython(code) {
+      var h = code
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      return h.replace(/("[^"]*"|'[^']*'|#.*|\b(def|for|in|if|elif|else|return|print|range|True|False|None)\b|\b(\d+)\b)/g, function (m) {
+        if (m[0] === '"') return '<span class="str">' + m + '</span>';
+        if (m[0] === "'") return "<span class='str'>" + m + "</span>";
+        if (m[0] === '#') return '<span class="cm">' + m + '</span>';
+        if (/^\d+$/.test(m)) return '<span class="num">' + m + '</span>';
+        return '<span class="kw">' + m + '</span>';
+      });
+    }
+
+    function showCode(exercise) {
+      var lang = currentLang || 'es';
+      var src = (codeSources[lang] || codeSources.es);
+      var code = src[exercise] || src.hello;
+      codeEl.innerHTML = highlightPython(code);
+    }
+
+    var currentExercise = 'hello';
+    showCode('hello');
+    window.addEventListener('pylangchange', function () { showCode(currentExercise); });
+
+    document.querySelectorAll('.python-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.python-tab').forEach(function (t) { t.classList.remove('active'); });
+        this.classList.add('active');
+        currentExercise = this.getAttribute('data-exercise');
+        showCode(currentExercise);
+      });
+    });
+
+    function runActivity(cmd) {
+      var lang = currentLang || 'es';
+      var r = responses[lang] || responses.es;
+      cmd = cmd.toLowerCase().replace(/[()]/g, '').trim();
+      if (cmd === 'help' || cmd === 'ayuda') { addLine('<span class="terminal-prompt">&gt;&gt;&gt;</span> help()', null); setTimeout(function () { addLine(r.help, null); }, 200); }
+      else if (cmd === 'hello' || cmd === 'hola') { addLine('<span class="terminal-prompt">&gt;&gt;&gt;</span> hello()', null); setTimeout(function () { addLine(r.hello, null); }, 250); }
+      else if (cmd === 'loop' || cmd === 'bucles') { addLine('<span class="terminal-prompt">&gt;&gt;&gt;</span> loop()', null); setTimeout(function () { addLine(r.loop, null); }, 300); }
+      else if (cmd === 'fib' || cmd === 'fibonacci') { addLine('<span class="terminal-prompt">&gt;&gt;&gt;</span> fib()', null); setTimeout(function () { addLine(r.fib, null); }, 350); }
+      else if (cmd === 'prime' || cmd === 'primo' || cmd === 'primos') { addLine('<span class="terminal-prompt">&gt;&gt;&gt;</span> prime()', null); setTimeout(function () { addLine(r.prime, null); }, 280); }
+      else if (cmd === 'sort' || cmd === 'ordenar') { addLine('<span class="terminal-prompt">&gt;&gt;&gt;</span> sort()', null); setTimeout(function () { addLine(r.sort, null); }, 220); }
+      else if (cmd === '') {}
+      else { addLine('<span class="terminal-prompt">&gt;&gt;&gt;</span> ' + cmd, null); setTimeout(function () { addLine('<span class="terminal-error">NameError: name \'' + cmd + '\' is not defined</span><br><span class="terminal-msg">Escribe <span class="terminal-cmd">help()</span> para ver actividades</span>', null); }, 200); }
+    }
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        var val = input.value.trim();
+        if (val) { history.push(val); hi = history.length; }
+        input.value = '';
+        runActivity(val);
+      } else if (e.key === 'ArrowUp') {
+        if (history.length && hi > 0) { hi--; input.value = history[hi]; }
+      } else if (e.key === 'ArrowDown') {
+        if (hi < history.length - 1) { hi++; input.value = history[hi]; }
+        else { hi = history.length; input.value = ''; }
+      }
+    });
+
+    document.getElementById('pythonRunBtn').addEventListener('click', function () {
+      input.value = currentExercise + '()';
+      runActivity(currentExercise);
+    });
+
+    document.getElementById('terminalClear').addEventListener('click', function () {
+      body.querySelectorAll('.terminal-line').forEach(function (l) {
+        if (l.id !== 'terminalOutput') l.remove();
+      });
+    });
+  })();
+
+  /* ── Hero 3D Geometry Background (Three.js) ── */
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || typeof THREE === 'undefined') return;
+    var c = document.getElementById('heroBg');
+    if (!c) return;
+
+    var cv = document.createElement('canvas');
+    cv.style.cssText = 'display:block;position:fixed;inset:0;width:100%;height:100%';
+    c.appendChild(cv);
+
+    var W = window.innerWidth, H = window.innerHeight;
+    cv.width = W; cv.height = H;
+
+    var gl = cv.getContext('webgl2', { alpha: true, antialias: true });
+    if (!gl) return;
+
+    var sc = new THREE.Scene();
+    var cm = new THREE.PerspectiveCamera(40, W / H, 1, 2000);
+    cm.position.z = 420;
+
+    var r = new THREE.WebGLRenderer({ canvas: cv, context: gl, alpha: true, antialias: true });
+    r.setSize(W, H);
+    r.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    var terracotta = new THREE.Color(0.55, 0.25, 0.12);
+    var terracottaLight = new THREE.Color(0.65, 0.35, 0.18);
+    var terracottaDim = new THREE.Color(0.40, 0.18, 0.08);
+
+    var geos = [
+      new THREE.IcosahedronGeometry(13, 0),
+      new THREE.TorusKnotGeometry(10, 4, 64, 8),
+      new THREE.DodecahedronGeometry(12, 0),
+      new THREE.BoxGeometry(12, 12, 12),
+      new THREE.OctahedronGeometry(11, 0),
+      new THREE.TorusGeometry(9, 3, 16, 32),
+      new THREE.ConeGeometry(8, 16, 6),
+      new THREE.SphereGeometry(9, 10, 8),
+      new THREE.TetrahedronGeometry(12, 0),
+      new THREE.RingGeometry(6, 11, 6),
+      new THREE.IcosahedronGeometry(9, 1),
+      new THREE.OctahedronGeometry(8, 1),
+      new THREE.DodecahedronGeometry(8, 0),
+      new THREE.ConeGeometry(7, 12, 5),
+      new THREE.TorusGeometry(7, 2, 12, 24),
+    ];
+
+    var ms = [];
+    var COUNT = 65;
+    var WALL_X = 260, WALL_Y = 180, WALL_Z_MIN = 230, WALL_Z_MAX = 430;
+
+    /* grid-based even spread: 8×8×3 = 192 cells, pick 54 */
+    var gridCols = 8, gridRows = 8, gridLayers = 3;
+    var cellW = (WALL_X * 2) / gridCols;
+    var cellH = (WALL_Y * 2) / gridRows;
+    var cellD = (WALL_Z_MAX - WALL_Z_MIN) / gridLayers;
+
+    var cellIdx = 0;
+    for (var i = 0; i < COUNT; i++) {
+      var g = geos[i % geos.length];
+      var style = i % 3;
+      var co = i % 2 === 0 ? terracotta : (i % 3 === 1 ? terracottaLight : terracottaDim);
+
+      var mat;
+      if (style === 0) {
+        mat = new THREE.MeshStandardMaterial({
+          color: co, metalness: 0.15, roughness: 0.5, transparent: true,
+          opacity: 0.40 + Math.random() * 0.20,
+        });
+      } else if (style === 1) {
+        mat = new THREE.MeshStandardMaterial({
+          color: co, metalness: 0.05, roughness: 0.7, transparent: true,
+          opacity: 0.45 + Math.random() * 0.25,
+          wireframe: true,
+        });
+      } else {
+        var pos = new THREE.BufferAttribute(g.attributes.position.array.slice(), 3);
+        var pg = new THREE.BufferGeometry();
+        pg.setAttribute('position', pos);
+        mat = new THREE.PointsMaterial({
+          color: co, size: 1.0 + Math.random() * 0.6,
+          transparent: true, opacity: 0.55 + Math.random() * 0.30,
+          sizeAttenuation: true,
+        });
+      }
+
+      var m = (style < 2) ? new THREE.Mesh(g, mat) : new THREE.Points(pg, mat);
+
+      /* place in grid cell center + jitter */
+      var gz = Math.floor(cellIdx / (gridCols * gridRows));
+      var gy = Math.floor((cellIdx % (gridCols * gridRows)) / gridCols);
+      var gx = cellIdx % gridCols;
+      var px = -WALL_X + cellW * (gx + 0.5) + (Math.random() - 0.5) * cellW * 0.5;
+      var py = -WALL_Y + cellH * (gy + 0.5) + (Math.random() - 0.5) * cellH * 0.5;
+      var pz = WALL_Z_MIN + cellD * (gz + 0.5) + (Math.random() - 0.5) * cellD * 0.4;
+      cellIdx++;
+
+      m.position.set(px, py, pz);
+      var scl = 0.50 + Math.random() * 0.35;
+      m.scale.set(scl, scl, scl);
+
+      var speed = 0.06 + Math.random() * 0.10;
+      var ang = Math.random() * Math.PI * 2;
+      var angV = (Math.random() - 0.5) * Math.PI * 0.4;
+      m.userData = {
+        vx: Math.cos(ang) * speed,
+        vy: Math.sin(ang) * speed * 0.6,
+        vz: (Math.random() - 0.5) * speed * 0.3,
+        rx: (Math.random() - 0.5) * 0.003,
+        ry: (Math.random() - 0.5) * 0.003,
+        rz: (Math.random() - 0.5) * 0.002,
+        radius: 8 * scl,
+      };
+      sc.add(m);
+      ms.push(m);
+    }
+
+    sc.add(new THREE.AmbientLight(0xffffff, 1.2));
+    var dl = new THREE.DirectionalLight(0xffffff, 1.4);
+    dl.position.set(2, 2, 2);
+    sc.add(dl);
+
+    var _bb1 = new THREE.Box3(), _bb2 = new THREE.Box3();
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      for (var i = 0; i < ms.length; i++) {
+        var m = ms[i], d = m.userData;
+
+        /* translate */
+        m.position.x += d.vx;
+        m.position.y += d.vy;
+        m.position.z += d.vz;
+
+        /* rotate */
+        m.rotation.x += d.rx;
+        m.rotation.y += d.ry;
+        m.rotation.z += d.rz;
+
+        /* wall bounce with margin = radius */
+        var rad = d.radius;
+        if (m.position.x < -WALL_X + rad) { m.position.x = -WALL_X + rad; d.vx = Math.abs(d.vx); }
+        else if (m.position.x > WALL_X - rad) { m.position.x = WALL_X - rad; d.vx = -Math.abs(d.vx); }
+        if (m.position.y < -WALL_Y + rad) { m.position.y = -WALL_Y + rad; d.vy = Math.abs(d.vy); }
+        else if (m.position.y > WALL_Y - rad) { m.position.y = WALL_Y - rad; d.vy = -Math.abs(d.vy); }
+        if (m.position.z < WALL_Z_MIN + rad) { m.position.z = WALL_Z_MIN + rad; d.vz = Math.abs(d.vz); }
+        else if (m.position.z > WALL_Z_MAX - rad) { m.position.z = WALL_Z_MAX - rad; d.vz = -Math.abs(d.vz); }
+      }
+
+      /* pairwise collision */
+      for (var i = 0; i < ms.length; i++) {
+        for (var j = i + 1; j < ms.length; j++) {
+          var a = ms[i], b = ms[j];
+          var dx = b.position.x - a.position.x;
+          var dy = b.position.y - a.position.y;
+          var dz = b.position.z - a.position.z;
+          var dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+          var minDist = a.userData.radius + b.userData.radius;
+          if (dist < minDist && dist > 0.01) {
+            var nx = dx / dist, ny = dy / dist, nz = dz / dist;
+            var overlap = (minDist - dist) * 0.5;
+            a.position.x -= nx * overlap;
+            a.position.y -= ny * overlap;
+            a.position.z -= nz * overlap;
+            b.position.x += nx * overlap;
+            b.position.y += ny * overlap;
+            b.position.z += nz * overlap;
+            /* swap velocity components along collision normal */
+            var dvn = a.userData.vx * nx + a.userData.vy * ny + a.userData.vz * nz;
+            var evn = b.userData.vx * nx + b.userData.vy * ny + b.userData.vz * nz;
+            a.userData.vx += (evn - dvn) * nx * 0.5;
+            a.userData.vy += (evn - dvn) * ny * 0.5;
+            a.userData.vz += (evn - dvn) * nz * 0.5;
+            b.userData.vx += (dvn - evn) * nx * 0.5;
+            b.userData.vy += (dvn - evn) * ny * 0.5;
+            b.userData.vz += (dvn - evn) * nz * 0.5;
+          }
+        }
+      }
+
+      r.render(sc, cm);
+    }
+    animate();
+
+    window.addEventListener('resize', function () {
+      W = window.innerWidth; H = window.innerHeight;
+      cv.width = W; cv.height = H;
+      cm.aspect = W / H; cm.updateProjectionMatrix();
+      r.setSize(W, H);
+    });
+  })();
+
+})();
+</script>
+
+<script>
+/* ── React hero buttons with spring animation ── */
+(function () {
+  var root = document.getElementById('heroActions');
+  if (!root || typeof React === 'undefined' || typeof ReactDOM === 'undefined') return;
+
+  var h = React.createElement;
+  var useState = React.useState;
+  var useEffect = React.useEffect;
+  var useRef = React.useRef;
+
+  function SpringAnchor(props) {
+    var ref = useRef(null);
+    var style = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', position: 'relative' };
+
+    useEffect(function () {
+      var el = ref.current;
+      if (!el) return;
+      var spring = { x: 0, y: 0, vx: 0, vy: 0 };
+      var stiffness = 0.12, damping = 0.72;
+
+      function onMove(e) {
+        var rect = el.getBoundingClientRect();
+        var tx = e.clientX - rect.left - rect.width / 2;
+        var ty = e.clientY - rect.top - rect.height / 2;
+        spring.targetX = tx * 0.15;
+        spring.targetY = ty * 0.15;
+      }
+
+      function onLeave() {
+        spring.targetX = 0;
+        spring.targetY = 0;
+      }
+
+      function tick() {
+        spring.vx += (spring.targetX - spring.x) * stiffness;
+        spring.vy += (spring.targetY - spring.y) * stiffness;
+        spring.vx *= damping;
+        spring.vy *= damping;
+        spring.x += spring.vx;
+        spring.y += spring.vy;
+        el.style.transform = 'translate(' + spring.x.toFixed(2) + 'px, ' + spring.y.toFixed(2) + 'px)';
+        if (Math.abs(spring.x) > 0.01 || Math.abs(spring.y) > 0.01 || Math.abs(spring.vx) > 0.01 || Math.abs(spring.vy) > 0.01) {
+          spring.raf = requestAnimationFrame(tick);
+        }
+      }
+
+      el.addEventListener('mousemove', onMove);
+      el.addEventListener('mouseleave', function () { onLeave(); if (!spring.raf) spring.raf = requestAnimationFrame(tick); });
+      return function () {
+        el.removeEventListener('mousemove', onMove);
+        el.removeEventListener('mouseleave', onLeave);
+        if (spring.raf) cancelAnimationFrame(spring.raf);
+      };
+    }, []);
+
+    return h('a', Object.assign({}, props, { ref: ref, style: Object.assign({}, style, props.style) }));
+  }
+
+  function HeroButtons() {
+    return       h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'flex-start' } },
+      h(SpringAnchor, { href: '#contact', className: 'btn btn-primary', 'data-i18n': 'hero_cta_contact' }, 'Contacto'),
+      h(SpringAnchor, { href: '#projects', className: 'btn btn-secondary', 'data-i18n': 'hero_cta_projects' }, 'Ver proyectos')
+    );
+  }
+
+  ReactDOM.createRoot(root).render(h(HeroButtons));
+})();
+</script>
+
+<script>
+/* ── Micro:bit Flappy Bird — Idle Animation (5×5 LED Grid) ── */
+/* Bird at col 1 navigates through pipe gaps — looks like it's being played */
+(function () {
+  var grid = document.getElementById('mbGrid');
+  if (!grid) return;
+
+  var leds = [];
+  for (var r = 0; r < 5; r++) {
+    for (var c = 0; c < 5; c++) {
+      var d = document.createElement('div');
+      d.className = 'mb-led';
+      grid.appendChild(d);
+      leds.push(d);
+    }
+  }
+
+  function setLed(r, c, type) {
+    if (r < 0 || r > 4 || c < 0 || c > 4) return;
+    var el = leds[r * 5 + c];
+    el.className = 'mb-led' + (type === 1 ? ' on' : type === 2 ? ' pipe' : '');
+  }
+
+  function clearGrid() {
+    for (var i = 0; i < leds.length; i++) leds[i].className = 'mb-led';
+  }
+
+  /* Bird stays at col 1 — visible, slightly right of edge */
+  var BIRD_COL = 1;
+  var birdRow = 2;
+  var pipes = [];
+  var tickCount = 0;
+  var nextGapRow = 2; /* default gap when no pipe ahead */
+
+  function spawnPipe() {
+    /* Gap avoids the current birdRow to keep the first pipe passable */
+    var gap;
+    do {
+      gap = Math.floor(Math.random() * 5);
+    } while (gap === birdRow && Math.random() < 0.6);
+    pipes.push({ col: 4, gap: gap, passed: false });
+  }
+
+  function draw() {
+    clearGrid();
+
+    /* Draw pipes */
+    for (var p = 0; p < pipes.length; p++) {
+      for (var r = 0; r < 5; r++) {
+        if (r !== pipes[p].gap) {
+          setLed(r, pipes[p].col, 2);
+        }
+      }
+    }
+
+    /* Draw bird — always visible so it looks actively played */
+    setLed(birdRow, BIRD_COL, 1);
+  }
+
+  function tick() {
+    tickCount++;
+
+    /* Move pipes left */
+    for (var p = pipes.length - 1; p >= 0; p--) {
+      pipes[p].col -= 1;
+      if (pipes[p].col < -1) {
+        pipes.splice(p, 1);
+      }
+    }
+
+    /* Spawn new pipe every 4 ticks */
+    if (tickCount % 4 === 0) {
+      spawnPipe();
+    }
+
+    /* Find the nearest upcoming pipe to the bird's column */
+    var targetRow = -1;
+    for (var p = 0; p < pipes.length; p++) {
+      if (pipes[p].col >= BIRD_COL && !pipes[p].passed) {
+        targetRow = pipes[p].gap;
+        break;
+      }
+    }
+
+    /* Navigate toward the gap — move 1 row per tick toward target */
+    if (targetRow >= 0) {
+      if (birdRow < targetRow) birdRow++;
+      else if (birdRow > targetRow) birdRow--;
+    } else {
+      /* No pipe ahead — gentle bob between rows 1-3 */
+      if (tickCount % 3 === 0) {
+        if (birdRow < 2) birdRow++;
+        else if (birdRow > 2) birdRow--;
+      }
+    }
+
+    /* Clamp bird to grid */
+    if (birdRow < 0) birdRow = 0;
+    if (birdRow > 4) birdRow = 4;
+
+    draw();
+  }
+
+  /* Start idle animation on load */
+  draw();
+  setInterval(tick, 450);
+})();
+</script>
+
+
+</body></html>

@@ -1,0 +1,13 @@
+{
+  "buildCommand": "exit 0",
+  "outputDirectory": ".",
+  "devCommand": "exit 0",
+  "installCommand": "exit 0",
+  "framework": null,
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/cv-landing-page.html"
+    }
+  ]
+}

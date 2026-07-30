@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Knowledge Graph</title>
+  <style>
+    body { margin: 0; background: #0f0f0f; color: #e0e0e0; font-family: system-ui; }
+    #graph { width: 100vw; height: 100vh; }
+  </style>
+</head>
+<body>
+<div id="graph"></div>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+const nodesData = [
+  { id: "cv-deploy", group: "project" },
+  { id: "open-design", group: "application" },
+  { id: "opencode-config", group: "config" },
+  { id: "ecc-install", group: "config" },
+  { id: "skills-installed", group: "config" },
+  { id: "pol-marti-de-tera", group: "person" }
+];
+
+const linksData = [
+  { source: "cv-deploy", target: "open-design" },
+  { source: "cv-deploy", target: "pol-marti-de-tera" },
+  { source: "opencode-config", target: "open-design" },
+  { source: "opencode-config", target: "ecc-install" },
+  { source: "opencode-config", target: "skills-installed" },
+  { source: "ecc-install", target: "skills-installed" },
+  { source: "pol-marti-de-tera", target: "cv-deploy" }
+];
+
+const colors = { project: "#4fc3f7", application: "#81c784", config: "#ffb74d", person: "#ce93d8" };
+
+const width = window.innerWidth, height = window.innerHeight;
+const svg = d3.select("#graph").append("svg").attr("width", width).attr("height", height);
+const g = svg.append("g");
+
+const simulation = d3.forceSimulation(nodesData)
+  .force("link", d3.forceLink(linksData).distance(180).strength(0.5))
+  .force("charge", d3.forceManyBody().strength(-500))
+  .force("center", d3.forceCenter(width / 2, height / 2));
+
+const link = g.append("g")
+  .selectAll("line")
+  .data(linksData).join("line")
+  .attr("stroke", "#555").attr("stroke-width", 2).attr("stroke-opacity", 0.6);
+
+const node = g.append("g")
+  .selectAll("g")
+  .data(nodesData).join("g")
+  .call(d3.drag().on("start", (e, d) => { if (!e.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }).on("drag", (e, d) => { d.fx = e.x; d.fy = e.y; }).on("end", (e, d) => { if (!e.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }));
+
+node.append("circle")
+  .attr("r", 28)
+  .attr("fill", d => colors[d.group] || "#888")
+  .attr("stroke", "#fff").attr("stroke-width", 2);
+
+node.append("text")
+  .text(d => d.id)
+  .attr("text-anchor", "middle")
+  .attr("dy", 4)
+  .attr("fill", "#fff")
+  .attr("font-size", 11)
+  .attr("font-weight", 600);
+
+simulation.on("tick", () => {
+  link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+  node.attr("transform", d => `translate(${d.x},${d.y})`);
+});
+
+svg.call(d3.zoom().scaleExtent([0.3, 4]).on("zoom", e => g.attr("transform", e.transform)));
+</script>
+</body>
+</html>
