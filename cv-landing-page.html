@@ -3,8 +3,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Pol-Martí de Tera — Estudiante de Ingeniería Informática en LaSalle. Apasionado por la tecnología y el futuro de la computación.">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#fcf8f0">
+<meta name="keywords" content="CV, Pol-Martí de Tera, Ingeniería Informática, LaSalle, Barcelona, full-stack, 3D, React, Python">
+<link rel="canonical" href="https://polmartidteradev.xyz">
 <title>Pol-Martí de Tera — CV</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23e05a2b'/><text x='16' y='22' text-anchor='middle' font-family='DM Sans,sans-serif' font-weight='700' font-size='18' fill='%23fff'>P</text></svg>">
+<link rel="preconnect" href="https://ajax.googleapis.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -199,8 +205,7 @@
     letter-spacing: 0.06em; text-transform: uppercase;
     padding: 0.7rem 1.4rem; border-radius: 4px; border: none;
     cursor: pointer; text-decoration: none;
-    transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease,
-                filter 0.15s ease, box-shadow 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease;
     position: relative; overflow: hidden;
   }
   .btn:hover { transform: translateY(-1px); }
@@ -230,7 +235,7 @@
   }
 
   /* ── About ── */
-  #about { padding-block: 3.5rem; }
+  #about { padding-block: 3.5rem 0; }
 
   .about-grid {
     display: grid; grid-template-columns: 1fr 280px;
@@ -247,7 +252,7 @@
   .about-portrait:hover { filter: grayscale(0); transform: scale(1.02); }
 
   /* ── Skills ── */
-  #skills { padding-block: 5rem 3.5rem; }
+  #skills { padding-block: 5rem 0; }
 
   .skills-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -297,7 +302,7 @@
   .skill-group.visible .skill-bar { width: 100%; }
 
   /* ── Projects ── */
-  #projects { padding-block: 3.5rem; }
+  #projects { padding-block: 3.5rem 0; }
 
   /* 3D Showcase */
   .showcase-3d {
@@ -309,7 +314,7 @@
     position: relative; background: color-mix(in oklch, var(--fg) 5%, var(--bg));
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border); border-radius: 8px;
-    overflow: hidden; aspect-ratio: 4/3;
+    overflow: hidden; aspect-ratio: 3/2;
   }
 
   model-viewer {
@@ -392,7 +397,7 @@
     background: color-mix(in oklch, var(--surface) 75%, transparent);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 1.5px solid var(--border);
-    cursor: pointer; transition: all 0.2s ease;
+    cursor: pointer;     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     text-decoration: none; color: inherit;
   }
   .model-thumb:hover { border-color: var(--accent); transform: translateX(4px); }
@@ -582,7 +587,7 @@
   .pulse-text { animation: pulse-text 2.5s ease-in-out infinite; }
 
   /* ── Education ── */
-  #education { padding-block: 5rem 3.5rem; }
+  #education { padding-block: 5rem 0; }
   .edu-list { display: flex; flex-direction: column; gap: 1.5rem; }
 
   .edu-item {
@@ -636,7 +641,7 @@
     border-radius: 6px; padding: 12px 16px; overflow-x: auto;
     font-family: 'Cascadia Code', 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 13px; line-height: 1.6; color: oklch(0.85 0 0);
-    max-height: none;
+    max-height: 200px; overflow-y: auto;
   }
   .python-code-panel code { white-space: pre; }
   .python-code-panel .kw { color: #c792ea; }
@@ -686,6 +691,7 @@
     caret-color: var(--accent); padding: 2px 0;
   }
   .terminal-input::placeholder { color: var(--muted); }
+  .terminal-input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .terminal-actions {
     display: flex; flex-wrap: wrap; gap: 4px;
     padding: 8px 14px 12px;
@@ -706,7 +712,7 @@
   .terminal-highlight { color: oklch(65% 0.1 85); }
 
   /* ── Experience ── */
-  #experience { padding-block: 3.5rem; }
+  #experience { padding-block: 3.5rem 0; }
   .exp-list { display: flex; flex-direction: column; gap: 1rem; }
 
   .exp-item {
@@ -1085,7 +1091,7 @@
     <span data-i18n="hero_sub_before">Estudiante apasionado por</span> <span class="rotating-text" id="rotatingText">tecnología</span><span data-i18n="hero_sub_after">. Con iniciativa, ganas de aprender y ganas de construir cosas que importan.</span>
   </p>
   <div class="hero-pullquote" data-i18n="hero_pullquote">
-    "Entender cómo funciona el mundo es el primer paso para cambiarlo."
+    "\u201CEntender cómo funciona el mundo es el primer paso para cambiarlo.\u201D"
   </div>
   <div class="hero-actions" id="heroActions"></div>
 </header>
@@ -1093,7 +1099,7 @@
 <!-- Quote ➞ About -->
 <div class="quote-divider reveal" data-od-id="quote-hero-about">
   <blockquote data-i18n="quote_hero_about">
-    "La tecnología es mejor cuando une a las personas."<br>
+    "\u201CLa tecnología es mejor cuando une a las personas.\u201D<br>
     <span>— Matt Mullenweg</span>
   </blockquote>
 </div>
@@ -1114,7 +1120,7 @@
 <!-- Quote ➞ Skills -->
 <div class="quote-divider reveal" data-od-id="quote-about-skills">
   <blockquote data-i18n="quote_about_skills">
-    "Nunca dejes de aprender, porque la vida nunca deja de enseñar."<br>
+    "\u201CNunca dejes de aprender, porque la vida nunca deja de enseñar.\u201D<br>
     <span>— Anónimo</span>
   </blockquote>
 </div>
@@ -1169,7 +1175,7 @@
 <!-- Quote ➞ Projects -->
 <div class="quote-divider reveal" data-od-id="quote-skills-projects">
   <blockquote data-i18n="quote_skills_projects">
-    "La mejor manera de predecir el futuro es inventarlo."<br>
+    "\u201CLa mejor manera de predecir el futuro es inventarlo.\u201D<br>
     <span>— Alan Kay</span>
   </blockquote>
 </div>
@@ -1193,10 +1199,10 @@
       <model-viewer id="mainViewer" src="Funel---Funel.gltf" alt="Modelo 3D — Funel" camera-controls="" auto-rotate="" auto-rotate-delay="1000" rotation-per-second="25deg" shadow-intensity="0.6" shadow-softness="0.8" exposure="1.1" camera-orbit="45deg 55deg 1m" min-camera-orbit="auto auto 0.5m" max-camera-orbit="Infinity Infinity 4m" interaction-prompt="auto" style="width:100%;height:100%;background:transparent;"></model-viewer>
       <div class="model-controls">
         <button class="model-btn active" id="btnAutoRotate" title="Auto-rotate" aria-label="Auto-rotate">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-6.2-8.56"></path><polyline points="21 3 21 9 15 9"></polyline></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 11-6.2-8.56"></path><polyline points="21 3 21 9 15 9"></polyline></svg>
         </button>
         <button class="model-btn" id="btnResetView" title="Reset view" aria-label="Reset view">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m0-10.14l2.83 2.83m4.48 4.48l2.83 2.83"></path></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m0-10.14l2.83 2.83m4.48 4.48l2.83 2.83"></path></svg>
         </button>
       </div>
     </div>
@@ -1204,7 +1210,7 @@
     <div class="model-thumbs">
       <button class="model-thumb active" data-model="Funel---Funel.gltf" data-label="Funel" data-alt="Modelo 3D — Funel">
         <span class="thumb-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
         </span>
         <span class="thumb-info">
           <span class="thumb-name">Funel</span>
@@ -1214,7 +1220,7 @@
 
       <button class="model-thumb" data-model="Gear-Cover.gltf" data-label="Gear Cover" data-alt="Modelo 3D — Gear Cover">
         <span class="thumb-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"></path></svg>
         </span>
         <span class="thumb-info">
           <span class="thumb-name">Gear Cover</span>
@@ -1224,7 +1230,7 @@
 
       <button class="model-thumb" data-model="Reflector.gltf" data-label="Reflector" data-alt="Modelo 3D — Reflector">
         <span class="thumb-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m0-10.14l2.83 2.83m4.48 4.48l2.83 2.83"></path><circle cx="12" cy="12" r="4"></circle></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" aria-hidden="true"><path d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.07-5.07l-2.83 2.83M9.76 14.24l-2.83 2.83m0-10.14l2.83 2.83m4.48 4.48l2.83 2.83"></path><circle cx="12" cy="12" r="4"></circle></svg>
         </span>
         <span class="thumb-info">
           <span class="thumb-name">Reflector</span>
@@ -1234,7 +1240,7 @@
 
       <button class="model-thumb" data-model="Part-Studio-1.gltf" data-label="Part Studio 1" data-alt="Modelo 3D — Part Studio 1">
         <span class="thumb-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="12" x2="21" y2="12"></line><line x1="12" y1="3" x2="12" y2="21"></line></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="12" x2="21" y2="12"></line><line x1="12" y1="3" x2="12" y2="21"></line></svg>
         </span>
         <span class="thumb-info">
           <span class="thumb-name">Rueda</span>
@@ -1244,7 +1250,7 @@
 
       <button class="model-thumb" data-model="Part-Studio-1_6_.gltf" data-label="Part Studio 1.6" data-alt="Modelo 3D — Part Studio 1.6">
         <span class="thumb-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon><line x1="12" y1="22" x2="12" y2="15.5"></line><polyline points="22 8.5 12 15.5 2 8.5"></polyline></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" aria-hidden="true"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon><line x1="12" y1="22" x2="12" y2="15.5"></line><polyline points="22 8.5 12 15.5 2 8.5"></polyline></svg>
         </span>
         <span class="thumb-info">
           <span class="thumb-name">Custom Chair</span>
@@ -1358,16 +1364,16 @@
           <div class="terminal-line" id="terminalOutput"></div>
           <div class="terminal-input-line">
             <span class="terminal-prompt">&gt;&gt;&gt;</span>
-            <input type="text" class="terminal-input" id="terminalInput" placeholder="escribe Python aquí..." autofocus="" spellcheck="false" autocomplete="off">
+            <input type="text" class="terminal-input" id="terminalInput" placeholder="escribe Python aquí..." aria-label="Terminal de Python" autofocus="" spellcheck="false" autocomplete="off">
           </div>
         </div>
         <div class="terminal-actions">
           <button class="terminal-btn" id="pythonRunBtn">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
             <span data-i18n="python_run">Ejecutar</span>
           </button>
           <button class="terminal-btn" id="terminalClear">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"></path></svg>
             <span data-i18n="python_clear">Limpiar</span>
           </button>
         </div>
@@ -1380,7 +1386,7 @@
 <!-- Quote ➞ Education -->
 <div class="quote-divider reveal" data-od-id="quote-projects-education">
   <blockquote data-i18n="quote_projects_education">
-    "La educación es el arma más poderosa para cambiar el mundo."<br>
+    "\u201CLa educación es el arma más poderosa para cambiar el mundo.\u201D<br>
     <span>— Nelson Mandela</span>
   </blockquote>
 </div>
@@ -1399,9 +1405,28 @@
     <div class="edu-item">
       <div>
         <h3 data-i18n="edu_bachillerato">Bachillerato de Ciencias y Tecnología</h3>
-        <p data-i18n="edu_bachillerato_desc">Formación preuniversitaria con orientación científica</p>
+        <p data-i18n="edu_bachillerato_desc">Jesuites Casp — Formación preuniversitaria con orientación científica</p>
       </div>
       <span class="edu-date">2023 — 2025</span>
+    </div>
+    <div class="edu-item">
+      <div>
+        <h3 data-i18n="edu_eso">Educación Primaria y ESO</h3>
+        <p data-i18n="edu_eso_desc">Sagrat Cor Esclaves (Rambla Catalunya)</p>
+      </div>
+      <span class="edu-date">2012 — 2023</span>
+    </div>
+    <div class="edu-item">
+      <div>
+        <h3 data-i18n="edu_english">C1 Advanced English</h3>
+        <p data-i18n="edu_english_desc">Cambridge English Certificate</p>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div>
+        <h3 data-i18n="edu_music">Formación Musical</h3>
+        <p data-i18n="edu_music_desc">Conocimientos de lenguaje musical e instrumento</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1409,7 +1434,7 @@
 <!-- Quote ➞ Experience -->
 <div class="quote-divider reveal" data-od-id="quote-education-experience">
   <blockquote data-i18n="quote_education_experience">
-    "Lo que sabemos es una gota; lo que ignoramos es el océano."<br>
+    "\u201CLo que sabemos es una gota; lo que ignoramos es el océano.\u201D<br>
     <span>— Isaac Newton</span>
   </blockquote>
 </div>
@@ -1442,7 +1467,7 @@
 <!-- Quote ➞ Contact -->
 <div class="quote-divider reveal" data-od-id="quote-experience-contact">
   <blockquote data-i18n="quote_experience_contact">
-    "Cualquier tecnología suficientemente avanzada es indistinguible de la magia."<br>
+    "\u201CCualquier tecnología suficientemente avanzada es indistinguible de la magia.\u201D<br>
     <span>— Arthur C. Clarke</span>
   </blockquote>
 </div>
@@ -1453,13 +1478,13 @@
   <div class="contact-grid reveal-stagger">
     <div class="contact-item">
       <span class="contact-label">Email</span>
-      <a href="mailto:pol@example.com" class="contact-value">pol@example.com</a>
+      <a href="mailto:pdeterapujol@gmail.com" class="contact-value">pdeterapujol@gmail.com</a>
     </div>
     <div class="contact-item">
       <span class="contact-label">GitHub</span>
       <a href="#" class="contact-value">github.com/pol-marti</a>
     </div>
-    <div class="contact-item">
+    <div class="contact-item" style="display:none">
       <span class="contact-label">LinkedIn</span>
       <a href="#" class="contact-value">linkedin.com/in/pol-marti</a>
     </div>
@@ -1540,7 +1565,13 @@
       edu_university: 'LaSalle — Ingeniería Informática',
       edu_university_desc: 'Titulación en Ingeniería Informática',
       edu_bachillerato: 'Bachillerato de Ciencias y Tecnología',
-      edu_bachillerato_desc: 'Formación preuniversitaria con orientación científica',
+      edu_bachillerato_desc: 'Jesuites Casp — Formación preuniversitaria con orientación científica',
+      edu_eso: 'Educación Primaria y ESO',
+      edu_eso_desc: 'Sagrat Cor Esclaves (Rambla Catalunya)',
+      edu_english: 'C1 Advanced English',
+      edu_english_desc: 'Cambridge English Certificate',
+      edu_music: 'Formación Musical',
+      edu_music_desc: 'Conocimientos de lenguaje musical e instrumento',
       experience_heading: '<span class="section-num">05</span> EXPERIENCIA',
       exp_student_role: 'Estudiante — Proyectos Académicos',
       exp_student_company: 'Proyectos personales y de clase',
@@ -1619,7 +1650,13 @@
       edu_university: 'LaSalle — Computer Science',
       edu_university_desc: 'Computer Science degree',
       edu_bachillerato: 'Science & Technology Baccalaureate',
-      edu_bachillerato_desc: 'Pre-university scientific education',
+      edu_bachillerato_desc: 'Jesuites Casp — Pre-university scientific education',
+      edu_eso: 'Primary & Secondary Education',
+      edu_eso_desc: 'Sagrat Cor Esclaves (Rambla Catalunya)',
+      edu_english: 'C1 Advanced English',
+      edu_english_desc: 'Cambridge English Certificate',
+      edu_music: 'Music Education',
+      edu_music_desc: 'Music theory and instrument studies',
       experience_heading: '<span class="section-num">05</span> EXPERIENCE',
       exp_student_role: 'Student — Academic Projects',
       exp_student_company: 'Personal and class projects',
@@ -1698,7 +1735,13 @@
       edu_university: 'LaSalle — Enginyeria Informàtica',
       edu_university_desc: 'Titulació en Enginyeria Informàtica',
       edu_bachillerato: 'Batxillerat de Ciències i Tecnologia',
-      edu_bachillerato_desc: 'Formació preuniversitària amb orientació científica',
+      edu_bachillerato_desc: 'Jesuites Casp — Formació preuniversitària amb orientació científica',
+      edu_eso: 'Educació Primària i ESO',
+      edu_eso_desc: 'Sagrat Cor Esclaves (Rambla Catalunya)',
+      edu_english: 'C1 Advanced English',
+      edu_english_desc: 'Cambridge English Certificate',
+      edu_music: 'Formació Musical',
+      edu_music_desc: 'Coneixements de llenguatge musical i instrument',
       experience_heading: '<span class="section-num">05</span> EXPERIÈNCIA',
       exp_student_role: 'Estudiant — Projectes Acadèmics',
       exp_student_company: 'Projectes personals i de classe',
