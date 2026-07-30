@@ -4,6 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Pol-Martí de Tera — Estudiante de Ingeniería Informática en LaSalle. Apasionado por la tecnología y el futuro de la computación.">
 <title>Pol-Martí de Tera — CV</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23e05a2b'/><text x='16' y='22' text-anchor='middle' font-family='DM Sans,sans-serif' font-weight='700' font-size='18' fill='%23fff'>P</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -34,22 +35,6 @@
 
   ::selection { background: color-mix(in oklch, var(--accent) 35%, transparent); color: var(--fg); }
   ::-moz-selection { background: color-mix(in oklch, var(--accent) 35%, transparent); color: var(--fg); }
-
-  /* ── Ambient mouse glow (desktop) ── */
-  @media (hover: hover) and (pointer: fine) {
-    .mouse-glow {
-      position: fixed; pointer-events: none; z-index: 9998;
-      inset: -200px;
-      background: radial-gradient(
-        circle 280px at var(--glow-x, 50%) var(--glow-y, 50%),
-        color-mix(in oklch, var(--accent) 8%, transparent) 0%,
-        transparent 70%
-      );
-      opacity: 0; transition: opacity 0.6s ease;
-      will-change: transform;
-    }
-    .mouse-glow.active { opacity: 1; }
-  }
 
   .skip-link {
     position: absolute; top: -100%; left: 1rem;
@@ -176,7 +161,7 @@
 
   .hero h1 {
     font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 7.5rem);
-    font-weight: 900; line-height: 0.88; letter-spacing: -0.06em;
+    font-weight: 900; line-height: 0.95; letter-spacing: -0.06em;
     text-transform: uppercase; margin-bottom: 1.75rem; color: var(--fg);
     text-align: left;
   }
@@ -214,7 +199,8 @@
     letter-spacing: 0.06em; text-transform: uppercase;
     padding: 0.7rem 1.4rem; border-radius: 4px; border: none;
     cursor: pointer; text-decoration: none;
-    transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.12s ease,
+                filter 0.15s ease, box-shadow 0.15s ease;
     position: relative; overflow: hidden;
   }
   .btn:hover { transform: translateY(-1px); }
@@ -222,7 +208,6 @@
 
   .btn-primary { background: var(--accent); color: var(--surface); }
   .btn-primary:hover { filter: brightness(1.1); }
-
   .btn-secondary { background: transparent; color: var(--fg); border: 1.5px solid var(--border); }
   .btn-secondary:hover { border-color: var(--muted); }
 
@@ -245,7 +230,7 @@
   }
 
   /* ── About ── */
-  #about { padding-block: 3.5rem 0; }
+  #about { padding-block: 3.5rem; }
 
   .about-grid {
     display: grid; grid-template-columns: 1fr 280px;
@@ -262,7 +247,7 @@
   .about-portrait:hover { filter: grayscale(0); transform: scale(1.02); }
 
   /* ── Skills ── */
-  #skills { padding-block: 5rem 0; }
+  #skills { padding-block: 5rem 3.5rem; }
 
   .skills-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -312,7 +297,7 @@
   .skill-group.visible .skill-bar { width: 100%; }
 
   /* ── Projects ── */
-  #projects { padding-block: 3.5rem 0; }
+  #projects { padding-block: 3.5rem; }
 
   /* 3D Showcase */
   .showcase-3d {
@@ -597,7 +582,7 @@
   .pulse-text { animation: pulse-text 2.5s ease-in-out infinite; }
 
   /* ── Education ── */
-  #education { padding-block: 5rem 0; }
+  #education { padding-block: 5rem 3.5rem; }
   .edu-list { display: flex; flex-direction: column; gap: 1.5rem; }
 
   .edu-item {
@@ -651,7 +636,7 @@
     border-radius: 6px; padding: 12px 16px; overflow-x: auto;
     font-family: 'Cascadia Code', 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 13px; line-height: 1.6; color: oklch(0.85 0 0);
-    max-height: 200px; overflow-y: auto;
+    max-height: none;
   }
   .python-code-panel code { white-space: pre; }
   .python-code-panel .kw { color: #c792ea; }
@@ -721,7 +706,7 @@
   .terminal-highlight { color: oklch(65% 0.1 85); }
 
   /* ── Experience ── */
-  #experience { padding-block: 3.5rem 0; }
+  #experience { padding-block: 3.5rem; }
   .exp-list { display: flex; flex-direction: column; gap: 1rem; }
 
   .exp-item {
@@ -945,6 +930,18 @@
       opacity: 1; transform: none;
     }
     .shine-card::before { display: none; }
+  }
+
+  @media (min-width: 769px) {
+    .hamburger { display: none; }
+    .nav-links {
+      position: static; width: auto; background: none;
+      backdrop-filter: none; border: none; padding: 0;
+      flex-direction: row; opacity: 1; visibility: visible;
+      transform: none;
+    }
+    .nav-links a { padding: 0.5rem 0.75rem; }
+    .nav-overlay { display: none !important; }
   }
 
   /* ── Responsive ── */
@@ -1903,24 +1900,8 @@
     })();
   }
 
-  /* ── Ambient mouse glow (desktop) ── */
-  var isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (!prefersReduced && isDesktop) {
-    var glow = document.createElement('div');
-    glow.className = 'mouse-glow';
-    document.body.appendChild(glow);
-    var glowActive = false;
-    document.addEventListener('mousemove', function (e) {
-      glow.style.setProperty('--glow-x', e.clientX + 'px');
-      glow.style.setProperty('--glow-y', e.clientY + 'px');
-      if (!glowActive) { glowActive = true; glow.classList.add('active'); }
-    });
-    document.addEventListener('mouseleave', function () {
-      glowActive = false; glow.classList.remove('active');
-    });
-  }
-
   /* ── Finger-trace glow blob (mobile) ── */
+  var isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (!prefersReduced && !isDesktop) {
     var canvas = document.getElementById('trace-canvas');
     var ctx = canvas.getContext('2d');
@@ -2239,37 +2220,37 @@
     var history = [], hi = -1;
     var responses = {
       es: {
-        hello: '<span class="terminal-success">print("¡Hola, mundo!")</span><br>Hola, mundo!<br><span class="terminal-msg"># Tu primer programa Python</span>',
-        loop: '<span class="terminal-success">for i in range(5):<br>&nbsp;&nbsp;&nbsp;&nbsp;print(f"Iteración {i}")</span><br>Iteración 0<br>Iteración 1<br>Iteración 2<br>Iteración 3<br>Iteración 4',
-        fib: '<span class="terminal-success">def fib(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;a, b = 0, 1<br>&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(a, end=" ")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a, b = b, a+b<br>fib(10)</span><br>0 1 1 2 3 5 8 13 21 34',
-        prime: '<span class="terminal-success">def es_primo(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;if n &lt; 2: return False<br>&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2, int(n**0.5)+1):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if n % i == 0: return False<br>&nbsp;&nbsp;&nbsp;&nbsp;return True<br>primos = [n for n in range(20) if es_primo(n)]</span><br>[2, 3, 5, 7, 11, 13, 17, 19]',
-        sort: '<span class="terminal-success">nums = [64, 34, 25, 12, 22, 11, 90]<br>nums.sort()<br>print(nums)</span><br>[11, 12, 22, 25, 34, 64, 90]<br><span class="terminal-msg"># Ordenación ascendente</span>',
-        help: '<span class="terminal-highlight">╔══════════════════════════╗<br>║  Actividades disponibles  ║<br>╚══════════════════════════╝</span><br><br><span class="terminal-cmd">hello()</span> — Hola, mundo<br><span class="terminal-cmd">loop()</span> — Bucles for<br><span class="terminal-cmd">fib()</span> — Sucesión Fibonacci<br><span class="terminal-cmd">prime()</span> — Números primos<br><span class="terminal-cmd">sort()</span> — Ordenar lista<br><br><span class="terminal-msg">Escribe el nombre o pulsa un botón</span>',
+        hello: '<span class="terminal-success">def saludar(nombres):<br>&nbsp;&nbsp;&nbsp;&nbsp;for nombre in nombres:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"¡Hola, {nombre}!")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"  Tu nombre tiene {len(nombre)} letras")<br>amigos = ["Ana", "Carlos", "Elena"]<br>saludar(amigos)</span><br>¡Hola, Ana!<br>&nbsp;&nbsp;Tu nombre tiene 3 letras<br>¡Hola, Carlos!<br>&nbsp;&nbsp;Tu nombre tiene 6 letras<br>¡Hola, Elena!<br>&nbsp;&nbsp;Tu nombre tiene 5 letras<br>[Bienvenido, Ana, Bienvenido, Carlos, Bienvenido, Elena]',
+        loop: '<span class="terminal-success">matriz = [[i * j for j in range(1, 6)] for i in range(1, 6)]<br>&nbsp;&nbsp;1 | 2 | 3 | 4 | 5<br>&nbsp;&nbsp;2 | 4 | 6 | 8 | 10<br>&nbsp;&nbsp;3 | 6 | 9 | 12 | 15<br>&nbsp;&nbsp;4 | 8 | 12 | 16 | 20<br>&nbsp;&nbsp;5 | 10 | 15 | 20 | 25</span><br><span class="terminal-msg"># Tabla de multiplicar con list comprehension</span><br><br>Cuadrados de pares:<br>{2: 4, 4: 16, 6: 36, 8: 64, 10: 100}',
+        fib: '<span class="terminal-success">def generador_fib():<br>&nbsp;&nbsp;&nbsp;&nbsp;a, b = 0, 1<br>&nbsp;&nbsp;&nbsp;&nbsp;while True:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yield a<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a, b = b, a + b</span><br>Primeros 20 Fibonacci:<br>[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181]<br><br>Proporciones (→ φ ≈ 1.618):<br>&nbsp;&nbsp;1.000000<br>&nbsp;&nbsp;2.000000<br>&nbsp;&nbsp;1.500000<br>&nbsp;&nbsp;1.666667<br>&nbsp;&nbsp;1.600000<br>&nbsp;&nbsp;1.625000<br>&nbsp;&nbsp;1.615385<br>&nbsp;&nbsp;1.619048',
+        prime: '<span class="terminal-success">def criba(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;primos = [True] * (n + 1)<br>&nbsp;&nbsp;&nbsp;&nbsp;primos[0] = primos[1] = False<br>&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2, int(n**0.5) + 1):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if primos[i]:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for j in range(i*i, n + 1, i):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;primos[j] = False<br>&nbsp;&nbsp;&nbsp;&nbsp;return [i for i, p in enumerate(primos) if p]</span><br>Primos hasta 200:<br>[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199]<br>Cantidad: 46',
+        sort: '<span class="terminal-success">def quicksort(arr):<br>&nbsp;&nbsp;&nbsp;&nbsp;if len(arr) <= 1:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return arr<br>&nbsp;&nbsp;&nbsp;&nbsp;pivote = arr[len(arr)//2]</span><br>Original: [3, 7, 1, 9, 2, 8, 5, 6, 4]<br>Ordenado: [1, 2, 3, 4, 5, 6, 7, 8, 9]<br><br>Por longitud: [c, java, python, typescript]',
+        help: '<span class="terminal-highlight">╔══════════════════════════╗<br>║  Actividades disponibles  ║<br>╚══════════════════════════╝</span><br><br><span class="terminal-cmd">hello()</span> — Función + list comprehension<br><span class="terminal-cmd">loop()</span> — Matrices y dict comprehensions<br><span class="terminal-cmd">fib()</span> — Generator + golden ratio<br><span class="terminal-cmd">prime()</span> — Criba de Eratóstenes<br><span class="terminal-cmd">sort()</span> — Quicksort + lambda sorting<br><br><span class="terminal-msg">Escribe el nombre o pulsa un botón</span>',
       },
       en: {
-        hello: '<span class="terminal-success">print("Hello, world!")</span><br>Hello, world!<br><span class="terminal-msg"># Your first Python program</span>',
-        loop: '<span class="terminal-success">for i in range(5):<br>&nbsp;&nbsp;&nbsp;&nbsp;print(f"Iteration {i}")</span><br>Iteration 0<br>Iteration 1<br>Iteration 2<br>Iteration 3<br>Iteration 4',
-        fib: '<span class="terminal-success">def fib(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;a, b = 0, 1<br>&nbsp;&nbsp;&nbsp;&nbsp;for _ in range(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(a, end=" ")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a, b = b, a+b<br>fib(10)</span><br>0 1 1 2 3 5 8 13 21 34',
-        prime: '<span class="terminal-success">def is_prime(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;if n &lt; 2: return False<br>&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2, int(n**0.5)+1):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if n % i == 0: return False<br>&nbsp;&nbsp;&nbsp;&nbsp;return True<br>primes = [n for n in range(20) if is_prime(n)]</span><br>[2, 3, 5, 7, 11, 13, 17, 19]',
-        sort: '<span class="terminal-success">nums = [64, 34, 25, 12, 22, 11, 90]<br>nums.sort()<br>print(nums)</span><br>[11, 12, 22, 25, 34, 64, 90]<br><span class="terminal-msg"># Ascending sort</span>',
-        help: '<span class="terminal-highlight">╔══════════════════════════╗<br>║  Available Activities     ║<br>╚══════════════════════════╝</span><br><br><span class="terminal-cmd">hello()</span> — Hello, world<br><span class="terminal-cmd">loop()</span> — For loops<br><span class="terminal-cmd">fib()</span> — Fibonacci sequence<br><span class="terminal-cmd">prime()</span> — Prime numbers<br><span class="terminal-cmd">sort()</span> — Sort a list<br><br><span class="terminal-msg">Type a command or click a button</span>',
+        hello: '<span class="terminal-success">def greet(names):<br>&nbsp;&nbsp;&nbsp;&nbsp;for name in names:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Hello, {name}!")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"  Your name has {len(name)} letters")<br>friends = ["Ana", "Carlos", "Elena"]<br>greet(friends)</span><br>Hello, Ana!<br>&nbsp;&nbsp;Your name has 3 letters<br>Hello, Carlos!<br>&nbsp;&nbsp;Your name has 6 letters<br>Hello, Elena!<br>&nbsp;&nbsp;Your name has 5 letters<br>[Welcome, Ana, Welcome, Carlos, Welcome, Elena]',
+        loop: '<span class="terminal-success">matrix = [[i * j for j in range(1, 6)] for i in range(1, 6)]<br>&nbsp;&nbsp;1 | 2 | 3 | 4 | 5<br>&nbsp;&nbsp;2 | 4 | 6 | 8 | 10<br>&nbsp;&nbsp;3 | 6 | 9 | 12 | 15<br>&nbsp;&nbsp;4 | 8 | 12 | 16 | 20<br>&nbsp;&nbsp;5 | 10 | 15 | 20 | 25</span><br><span class="terminal-msg"># Multiplication table with list comprehension</span><br><br>Squares of evens:<br>{2: 4, 4: 16, 6: 36, 8: 64, 10: 100}',
+        fib: '<span class="terminal-success">def fib_generator():<br>&nbsp;&nbsp;&nbsp;&nbsp;a, b = 0, 1<br>&nbsp;&nbsp;&nbsp;&nbsp;while True:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;yield a<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a, b = b, a + b</span><br>First 20 Fibonacci:<br>[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181]<br><br>Ratios (→ φ ≈ 1.618):<br>&nbsp;&nbsp;1.000000<br>&nbsp;&nbsp;2.000000<br>&nbsp;&nbsp;1.500000<br>&nbsp;&nbsp;1.666667<br>&nbsp;&nbsp;1.600000<br>&nbsp;&nbsp;1.625000<br>&nbsp;&nbsp;1.615385<br>&nbsp;&nbsp;1.619048',
+        prime: '<span class="terminal-success">def sieve(n):<br>&nbsp;&nbsp;&nbsp;&nbsp;primes = [True] * (n + 1)<br>&nbsp;&nbsp;&nbsp;&nbsp;primes[0] = primes[1] = False<br>&nbsp;&nbsp;&nbsp;&nbsp;for i in range(2, int(n**0.5) + 1):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if primes[i]:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for j in range(i*i, n + 1, i):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;primes[j] = False<br>&nbsp;&nbsp;&nbsp;&nbsp;return [i for i, p in enumerate(primes) if p]</span><br>Primes up to 200:<br>[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199]<br>Count: 46',
+        sort: '<span class="terminal-success">def quicksort(arr):<br>&nbsp;&nbsp;&nbsp;&nbsp;if len(arr) <= 1:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return arr<br>&nbsp;&nbsp;&nbsp;&nbsp;pivot = arr[len(arr)//2]</span><br>Original: [3, 7, 1, 9, 2, 8, 5, 6, 4]<br>Sorted:   [1, 2, 3, 4, 5, 6, 7, 8, 9]<br><br>By length: [c, java, python, typescript]',
+        help: '<span class="terminal-highlight">╔══════════════════════════╗<br>║  Available Activities     ║<br>╚══════════════════════════╝</span><br><br><span class="terminal-cmd">hello()</span> — Function + list comprehension<br><span class="terminal-cmd">loop()</span> — Matrix & dict comprehensions<br><span class="terminal-cmd">fib()</span> — Generator + golden ratio<br><span class="terminal-cmd">prime()</span> — Sieve of Eratosthenes<br><span class="terminal-cmd">sort()</span> — Quicksort + lambda sorting<br><br><span class="terminal-msg">Type a command or click a button</span>',
       }
     };
 
     var codeSources = {
       es: {
-        hello: 'print("¡Hola, mundo!")\n# Tu primer programa Python',
-        loop: 'for i in range(5):\n    print(f"Iteración {i}")',
-        fib: 'def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        print(a, end=" ")\n        a, b = b, a + b\n\nfib(10)',
-        prime: 'def es_primo(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\nprimos = [n for n in range(20) if es_primo(n)]\nprint(primos)',
-        sort: 'nums = [64, 34, 25, 12, 22, 11, 90]\nnums.sort()\nprint(nums)\n# Ordenación ascendente',
+        hello: 'def saludar(nombres):\n    for nombre in nombres:\n        print(f"¡Hola, {nombre}!")\n        print(f"  Tu nombre tiene {len(nombre)} letras")\n\namigos = ["Ana", "Carlos", "Elena"]\nsaludar(amigos)\n\nmensajes = [f"Bienvenido, {n}" for n in amigos]\nprint(mensajes)',
+        loop: 'matriz = [[i * j for j in range(1, 6)] for i in range(1, 6)]\nfor fila in matriz:\n    print(" | ".join(f"{n:3}" for n in fila))\n\npares_cuadrados = {x: x**2 for x in range(1, 11) if x % 2 == 0}\nprint(f"\\nCuadrados de pares:\\n{pares_cuadrados}")',
+        fib: 'def generador_fib():\n    a, b = 0, 1\n    while True:\n        yield a\n        a, b = b, a + b\n\nfib = generador_fib()\nprimeros = [next(fib) for _ in range(20)]\nprint(f"Primeros 20 Fibonacci:\\n{primeros}")\n\nproporciones = [primeros[i+1]/primeros[i] for i in range(len(primeros)-1)]\nprint(f"\\nProporciones (→ φ ≈ 1.618):")\nfor p in proporciones[:8]:\n    print(f"  {p:.6f}")',
+        prime: 'def criba(n):\n    primos = [True] * (n + 1)\n    primos[0] = primos[1] = False\n    for i in range(2, int(n**0.5) + 1):\n        if primos[i]:\n            for j in range(i*i, n + 1, i):\n                primos[j] = False\n    return [i for i, p in enumerate(primos) if p]\n\nprimos = criba(200)\nprint(f"Primos hasta 200:\\n{primos}")\nprint(f"Cantidad: {len(primos)}")',
+        sort: 'def quicksort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivote = arr[len(arr)//2]\n    izq = [x for x in arr if x < pivote]\n    med = [x for x in arr if x == pivote]\n    der = [x for x in arr if x > pivote]\n    return quicksort(izq) + med + quicksort(der)\n\ndatos = [3, 7, 1, 9, 2, 8, 5, 6, 4]\nprint(f"Original: {datos}")\nordenado = quicksort(datos)\nprint(f"Ordenado: {ordenado}")\n\npalabras = ["python", "java", "typescript", "c"]\npors = sorted(palabras, key=lambda w: (len(w), w))\nprint(f"\\nPor longitud: {pors}")',
       },
       en: {
-        hello: 'print("Hello, world!")\n# Your first Python program',
-        loop: 'for i in range(5):\n    print(f"Iteration {i}")',
-        fib: 'def fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        print(a, end=" ")\n        a, b = b, a + b\n\nfib(10)',
-        prime: 'def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\nprimes = [n for n in range(20) if is_prime(n)]\nprint(primes)',
-        sort: 'nums = [64, 34, 25, 12, 22, 11, 90]\nnums.sort()\nprint(nums)\n# Ascending sort',
+        hello: 'def greet(names):\n    for name in names:\n        print(f"Hello, {name}!")\n        print(f"  Your name has {len(name)} letters")\n\nfriends = ["Ana", "Carlos", "Elena"]\ngreet(friends)\n\nmessages = [f"Welcome, {n}" for n in friends]\nprint(messages)',
+        loop: 'matrix = [[i * j for j in range(1, 6)] for i in range(1, 6)]\nfor row in matrix:\n    print(" | ".join(f"{n:3}" for n in row))\n\neven_squares = {x: x**2 for x in range(1, 11) if x % 2 == 0}\nprint(f"\\nSquares of evens:\\n{even_squares}")',
+        fib: 'def fib_generator():\n    a, b = 0, 1\n    while True:\n        yield a\n        a, b = b, a + b\n\nfib = fib_generator()\nfirst_20 = [next(fib) for _ in range(20)]\nprint(f"First 20 Fibonacci:\\n{first_20}")\n\nratios = [first_20[i+1]/first_20[i] for i in range(len(first_20)-1)]\nprint(f"\\nRatios (→ φ ≈ 1.618):")\nfor r in ratios[:8]:\n    print(f"  {r:.6f}")',
+        prime: 'def sieve(n):\n    primes = [True] * (n + 1)\n    primes[0] = primes[1] = False\n    for i in range(2, int(n**0.5) + 1):\n        if primes[i]:\n            for j in range(i*i, n + 1, i):\n                primes[j] = False\n    return [i for i, p in enumerate(primes) if p]\n\nprimes = sieve(200)\nprint(f"Primes up to 200:\\n{primes}")\nprint(f"Count: {len(primes)}")',
+        sort: 'def quicksort(arr):\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[len(arr)//2]\n    left = [x for x in arr if x < pivot]\n    mid = [x for x in arr if x == pivot]\n    right = [x for x in arr if x > pivot]\n    return quicksort(left) + mid + quicksort(right)\n\ndata = [3, 7, 1, 9, 2, 8, 5, 6, 4]\nprint(f"Original: {data}")\nsorted_data = quicksort(data)\nprint(f"Sorted:   {sorted_data}")\n\nwords = ["python", "java", "typescript", "c"]\nby_len = sorted(words, key=lambda w: (len(w), w))\nprint(f"\\nBy length: {by_len}")',
       },
     };
 
@@ -2720,4 +2701,5 @@
 </script>
 
 
+<noscript><div style="background:#fee;color:#c00;padding:1rem;text-align:center;font-family:sans-serif">JavaScript required for full experience</div></noscript>
 </body></html>
